@@ -1,0 +1,4 @@
+.vs
+.vscode/tasks.json
+/TheOtherRoles/bin/Debug/netstandard2.1
+/TheOtherRoles/obj
