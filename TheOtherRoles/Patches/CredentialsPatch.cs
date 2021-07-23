@@ -12,11 +12,13 @@ namespace TheOtherRoles.Patches {
         public static string fullCredentials = 
 $@"<size=130%><color=#ff351f>TheOtherRoles</color></size> v{TheOtherRolesPlugin.Version.ToString()}
 <size=80%>Modded by <color=#FCCE03FF>Eisbison</color>,
-<color=#FCCE03FF>Thunderstorm584</color> & <color=#FCCE03FF>EndOfFile</color>
-Button design by <color=#FCCE03FF>Bavari</color></size>";
+<color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>EndOfFile</color>,
+<color=#FCCE03FF>oPyRuSo</color> & <color=#FCCE03FF>Mamax49</color>
+Button design by <color=#FCCE03FF>Bavari</color> & <color=#FCCE03FF>oPyRuSo</color></size>";
 
     public static string mainMenuCredentials = 
-$@"Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>Thunderstorm584</color> & <color=#FCCE03FF>EndOfFile</color>
+$@"Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>EndOfFile</color>,
+<color=#FCCE03FF>oPyRuSo</color> & <color=#FCCE03FF>Mamax49</color>
 Design by <color=#FCCE03FF>Bavari</color>";
 
         [HarmonyPatch(typeof(VersionShower), nameof(VersionShower.Start))]

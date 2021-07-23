@@ -15,7 +15,6 @@ namespace TheOtherRoles.Patches {
     public static class PlayerControlFixedUpdatePatch
     {
         // Helpers
-
         static PlayerControl setTarget(bool onlyCrewmates = false, bool targetPlayersInVents = false, List<PlayerControl> untargetablePlayers = null, PlayerControl targetingPlayer = null) {
             PlayerControl result = null;
             float num = GameOptionsData.KillDistances[Mathf.Clamp(PlayerControl.GameOptions.KillDistance, 0, 2)];
@@ -731,7 +730,7 @@ namespace TheOtherRoles.Patches {
 
             // Undertaker Button Sync
             if (Undertaker.undertaker!= null && PlayerControl.LocalPlayer == Undertaker.undertaker && __instance == Undertaker.undertaker && HudManagerStartPatch.undertakerDragButton != null)
-                HudManagerStartPatch.undertakerDragButton.Timer = Undertaker.undertaker.killTimer;
+                HudManagerStartPatch.undertakerDragButton.Timer = Undertaker.dragingDelaiAfterKill;
 
             // Warlock Button Sync
             if (Warlock.warlock != null && PlayerControl.LocalPlayer == Warlock.warlock && __instance == Warlock.warlock && HudManagerStartPatch.warlockCurseButton != null) {
