@@ -463,6 +463,15 @@ namespace TheOtherRoles.Patches {
             }
         }
 
+        static void undertakerDragBodyUpdate() {
+            if (Undertaker.undertaker == null || Undertaker.undertaker.Data.IsDead ) return;
+            if (Undertaker.deadBodyDraged != null ) {
+                Vector3 currentPosition = Undertaker.undertaker.transform.position;
+                Undertaker.deadBodyDraged.transform.position = currentPosition;
+            }
+              
+        }
+
         static void bountyHunterUpdate() {
             if (BountyHunter.bountyHunter == null || PlayerControl.LocalPlayer != BountyHunter.bountyHunter) return;
 
@@ -572,6 +581,8 @@ namespace TheOtherRoles.Patches {
                 arsonistSetTarget();
                 // Snitch
                 snitchUpdate();
+                // undertaker
+                undertakerDragBodyUpdate();
                 // BountyHunter
                 bountyHunterUpdate();
             } 
@@ -716,8 +727,12 @@ namespace TheOtherRoles.Patches {
 
             // Cleaner Button Sync
             if (Cleaner.cleaner != null && PlayerControl.LocalPlayer == Cleaner.cleaner && __instance == Cleaner.cleaner && HudManagerStartPatch.cleanerCleanButton != null) 
-                HudManagerStartPatch.cleanerCleanButton.Timer = Cleaner.cleaner.killTimer; 
-            
+                HudManagerStartPatch.cleanerCleanButton.Timer = Cleaner.cleaner.killTimer;
+
+            // Undertaker Button Sync
+            if (Undertaker.undertaker!= null && PlayerControl.LocalPlayer == Undertaker.undertaker && __instance == Undertaker.undertaker && HudManagerStartPatch.undertakerDragButton != null)
+                HudManagerStartPatch.undertakerDragButton.Timer = Undertaker.undertaker.killTimer;
+
             // Warlock Button Sync
             if (Warlock.warlock != null && PlayerControl.LocalPlayer == Warlock.warlock && __instance == Warlock.warlock && HudManagerStartPatch.warlockCurseButton != null) {
                 if(Warlock.warlock.killTimer > HudManagerStartPatch.warlockCurseButton.Timer) {
