@@ -244,8 +244,8 @@ namespace TheOtherRoles.Patches {
                         p.CurrentPet.Source = p;
                     }
                 }
-            }
-
+            } 
+            
             // Set invis look (overrides camouflage look if existent)
             if (Invisible.invisibleTimer > 0f)
             {

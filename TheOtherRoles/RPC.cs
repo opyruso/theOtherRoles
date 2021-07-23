@@ -43,6 +43,7 @@ namespace TheOtherRoles
         Spy,
         Trickster,
         Cleaner,
+        Undertaker,
         Warlock,
         SecurityGuard,
         Arsonist,
@@ -68,6 +69,8 @@ namespace TheOtherRoles
         EngineerFixLights = 81,
         EngineerUsedRepair,
         CleanBody,
+        DragBody,
+        DropBody,
         SheriffKill,
         MedicSetShielded,
         ShieldedMurderAttempt,
@@ -184,7 +187,7 @@ namespace TheOtherRoles
                     case RoleId.Invisible:
                         Invisible.invisible = player;
                         break;
-                        case RoleId.Camouflager:
+                    case RoleId.Camouflager:
                         Camouflager.camouflager = player;
                         break;
                     case RoleId.Hacker:
@@ -219,6 +222,9 @@ namespace TheOtherRoles
                         break;
                     case RoleId.Cleaner:
                         Cleaner.cleaner = player;
+                        break;
+                    case RoleId.Undertaker:
+                        Undertaker.undertaker= player;
                         break;
                     case RoleId.Warlock:
                         Warlock.warlock = player;
@@ -287,6 +293,24 @@ namespace TheOtherRoles
                 if (GameData.Instance.GetPlayerById(array[i].ParentId).PlayerId == playerId)
                     UnityEngine.Object.Destroy(array[i].gameObject);
             }
+        }
+
+        public static void dragBody(byte playerId)
+        {
+            DeadBody[] array = UnityEngine.Object.FindObjectsOfType<DeadBody>();
+            for (int i = 0; i < array.Length; i++) {
+                if (GameData.Instance.GetPlayerById(array[i].ParentId).PlayerId == playerId) {
+                    Undertaker.deadBodyDraged = array[i];
+                }
+            }
+        }
+
+        public static void dropBody(byte playerId)
+        {
+            if (Undertaker.undertaker == null || Undertaker.deadBodyDraged == null) return;
+            var deadBody = Undertaker.deadBodyDraged;
+            Undertaker.deadBodyDraged = null;
+            deadBody.transform.position = new Vector3(Undertaker.undertaker.transform.position.x, Undertaker.undertaker.transform.position.y, Undertaker.undertaker.transform.position.z);
         }
 
         public static void sheriffKill(byte targetId) {
@@ -565,6 +589,7 @@ namespace TheOtherRoles
             if (player == Eraser.eraser) Eraser.clearAndReload();
             if (player == Trickster.trickster) Trickster.clearAndReload();
             if (player == Cleaner.cleaner) Cleaner.clearAndReload();
+            if (player == Undertaker.undertaker) Undertaker.clearAndReload();
             if (player == Warlock.warlock) Warlock.clearAndReload();
         
             // Other roles
@@ -762,6 +787,12 @@ namespace TheOtherRoles
                     break;
                 case (byte)CustomRPC.CleanBody:
                     RPCProcedure.cleanBody(reader.ReadByte());
+                    break;
+                case (byte)CustomRPC.DragBody:
+                    RPCProcedure.dragBody(reader.ReadByte());
+                    break;
+                case (byte)CustomRPC.DropBody:
+                    RPCProcedure.dropBody(reader.ReadByte());
                     break;
                 case (byte)CustomRPC.SheriffKill:
                     RPCProcedure.sheriffKill(reader.ReadByte());

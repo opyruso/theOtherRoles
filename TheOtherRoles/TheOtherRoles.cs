@@ -49,6 +49,7 @@ namespace TheOtherRoles
             Spy.clearAndReload();
             Trickster.clearAndReload();
             Cleaner.clearAndReload();
+            Undertaker.clearAndReload();
             Warlock.clearAndReload();
             SecurityGuard.clearAndReload();
             Arsonist.clearAndReload();
@@ -486,14 +487,17 @@ namespace TheOtherRoles
 
         public static void resetInvisible()
         {
-            isInvis = false;
-            invisible.Visible = true;
-            invisible.SetName(invisible.Data.PlayerName);
-            invisible.SetHat(invisible.Data.HatId, (int)invisible.Data.ColorId);
-            Helpers.setSkinWithAnim(invisible.MyPhysics, invisible.Data.SkinId);
-            invisible.SetPet(invisible.Data.PetId);
-            invisible.CurrentPet.Visible = invisible.Visible;
-            invisible.SetColor(invisible.Data.ColorId);
+            if (invisible != null)
+            {
+                isInvis = false;
+                invisible.Visible = true;
+                invisible.SetName(invisible.Data.PlayerName);
+                invisible.SetHat(invisible.Data.HatId, (int)invisible.Data.ColorId);
+                Helpers.setSkinWithAnim(invisible.MyPhysics, invisible.Data.SkinId);
+                invisible.SetPet(invisible.Data.PetId);
+                invisible.CurrentPet.Visible = true;
+                invisible.SetColor(invisible.Data.ColorId);
+            }
         }
 
         public static void clearAndReload()
@@ -502,7 +506,7 @@ namespace TheOtherRoles
             invisibleTimer = 0f;
             cooldown = CustomOptionHolder.invisibleCooldown.getFloat();
             duration = CustomOptionHolder.invisibleDuration.getFloat();
-        }
+    }
     }
 
     public static class Camouflager {
@@ -611,6 +615,11 @@ namespace TheOtherRoles
         public static Arrow arrow = new Arrow(Color.blue);
 
         private static Sprite buttonSprite;
+        public static Sprite getButtonSprite() {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TrackerButton.png", 115f);
+            return buttonSprite;
+        }
 
         public static void resetTrack()
         {
@@ -622,12 +631,6 @@ namespace TheOtherRoles
             if (arrow?.arrow != null) UnityEngine.Object.Destroy(arrow.arrow);
             arrow = new Arrow(Color.blue);
             if (arrow.arrow != null) arrow.arrow.SetActive(false);
-        }
-
-        public static Sprite getButtonSprite() {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TrackerButton.png", 115f);
-            return buttonSprite;
         }
 
         public static void clearAndReload() {
@@ -864,6 +867,37 @@ namespace TheOtherRoles
         public static void clearAndReload() {
             cleaner = null;
             cooldown = CustomOptionHolder.cleanerCooldown.getFloat();
+        }
+    }
+
+
+    public static class Undertaker
+    {
+        public static PlayerControl undertaker;
+        public static Color color = Palette.ImpostorRed;
+
+        public static float cooldown = 30f;
+        public static float dragingCooldown = 0.5f;
+
+        public static bool isDraging = false;
+        public static DeadBody deadBodyDraged = null;
+
+        
+        private static Sprite buttonSprite;
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.UndertakerDragButton.png", 115f);
+            return buttonSprite;
+        }
+
+        public static void clearAndReload()
+        {
+            undertaker = null;
+            isDraging = false;
+            deadBodyDraged = null;
+            cooldown = CustomOptionHolder.undertakerCooldown.getFloat();
+            dragingCooldown = CustomOptionHolder.undertakerDragingCooldown.getFloat();
         }
     }
 
