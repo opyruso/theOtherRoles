@@ -204,9 +204,9 @@ namespace TheOtherRoles {
             morphlingCooldown = CustomOption.Create(21, "Morphling Cooldown", 30f, 10f, 60f, 2.5f, morphlingSpawnRate);
             morphlingDuration = CustomOption.Create(22, "Morph Duration", 10f, 1f, 20f, 0.5f, morphlingSpawnRate);
 
-            invisibleSpawnRate = CustomOption.Create(330, cs(Invisible.color, "Invisible"), rates, null, true);
-            invisibleCooldown = CustomOption.Create(331, "Invisibility Cooldown", 30f, 10f, 60f, 2.5f, invisibleSpawnRate);
-            invisibleDuration = CustomOption.Create(332, "Invisibility Duration", 10f, 1f, 20f, 0.5f, invisibleSpawnRate);
+            invisibleSpawnRate = CustomOption.Create(340, cs(Invisible.color, "Invisible"), rates, null, true);
+            invisibleCooldown = CustomOption.Create(341, "Invisibility Cooldown", 30f, 10f, 60f, 2.5f, invisibleSpawnRate);
+            invisibleDuration = CustomOption.Create(342, "Invisibility Duration", 10f, 1f, 20f, 0.5f, invisibleSpawnRate);
 
             camouflagerSpawnRate = CustomOption.Create(30, cs(Camouflager.color, "Camouflager"), rates, null, true);
             camouflagerCooldown = CustomOption.Create(31, "Camouflager Cooldown", 30f, 10f, 60f, 2.5f, camouflagerSpawnRate);
