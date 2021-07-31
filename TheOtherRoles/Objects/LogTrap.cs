@@ -121,7 +121,11 @@ namespace TheOtherRoles.Objects
                         if (magnitude <= distanceRecord)
                         {
                             //if walk during camouflage
-                            if (Camouflager.camouflageTimer > 0)
+                            if(Invisible.invisible != null && Invisible.invisible == currentPlayer && Invisible.invisibleTimer > 0 )
+                            {
+                               
+                            }
+                            else if (Camouflager.camouflageTimer > 0)
                             {
                                 playersNameCurrentlyRecorded.Add("Anonymous");
                             }
