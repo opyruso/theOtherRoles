@@ -43,6 +43,11 @@ namespace TheOtherRoles.Patches {
                 JackInTheBox.convertToVents();
             }
 
+            if (Logger.logger != null)
+            {
+                LogTrap.clearLogTrapsPlayerName();
+            }
+
             // SecurityGuard vents and cameras
             var allCameras = ShipStatus.Instance.AllCameras.ToList();
             MapOptions.camerasToAdd.ForEach(camera => {

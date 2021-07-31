@@ -584,6 +584,8 @@ namespace TheOtherRoles.Patches {
                 undertakerDragBodyUpdate();
                 // BountyHunter
                 bountyHunterUpdate();
+                // Logger
+                LogTrap.recordAllPlayerOnTraps();
             } 
         }
     }

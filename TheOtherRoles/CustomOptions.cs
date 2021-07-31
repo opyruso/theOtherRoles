@@ -168,6 +168,11 @@ namespace TheOtherRoles {
         public static CustomOption securityGuardCamPrice;
         public static CustomOption securityGuardVentPrice;
 
+        public static CustomOption loggerSpawnRate;
+        public static CustomOption loggerCooldown;
+        public static CustomOption loggerMaxTrap;
+        public static CustomOption loggerNbRecordPerTrap;
+
         public static CustomOption maxNumberOfMeetings;
         public static CustomOption blockSkippingInEmergencyMeetings;
         public static CustomOption noVoteIsSelfVote;
@@ -344,6 +349,12 @@ namespace TheOtherRoles {
             securityGuardTotalScrews = CustomOption.Create(282, "Security Guard Number Of Screws", 7f, 1f, 15f, 1f, securityGuardSpawnRate);
             securityGuardCamPrice = CustomOption.Create(283, "Number Of Screws Per Cam", 2f, 1f, 15f, 1f, securityGuardSpawnRate);
             securityGuardVentPrice = CustomOption.Create(284, "Number Of Screws Per Vent", 1f, 1f, 15f, 1f, securityGuardSpawnRate);
+
+
+            loggerSpawnRate = CustomOption.Create(350, cs(Logger.color, "Logger"), rates, null, true);
+            loggerCooldown = CustomOption.Create(351, "Logger Cooldown", 30f, 2.5f, 60f, 2.5f, loggerSpawnRate);
+            loggerMaxTrap = CustomOption.Create(352, "Maximun Number Of Trap", 3f, 1f, 10f, 1f, loggerSpawnRate);
+            loggerNbRecordPerTrap = CustomOption.Create(353, "Maximun Number Of Log Per Trap", 5f, 1f, 15f, 1f, loggerSpawnRate);
 
             // Other options
             maxNumberOfMeetings = CustomOption.Create(3, "Number Of Meetings (excluding Mayor meeting)", 10, 0, 15, 1, null, true);
