@@ -253,7 +253,17 @@ namespace TheOtherRoles.Patches {
             Transform selectedButton = null;
 
             foreach (RoleInfo roleInfo in RoleInfo.allRoleInfos) {
-                if (roleInfo.roleId == RoleId.Lover || roleInfo.roleId == RoleId.Guesser || roleInfo == RoleInfo.niceMini) continue; // Not guessable roles
+                if (roleInfo.roleId == RoleId.Spy || roleInfo.roleId == RoleId.Lover || roleInfo.roleId == RoleId.Guesser || roleInfo == RoleInfo.niceMini) continue; // Not guessable roles
+                if (CustomOptionHolder.guesserSeeOnlyExistingRoles.getBool()) {
+                    bool found = false;
+                    foreach (PlayerControl player in PlayerControl.AllPlayerControls) {
+                        if (!player.Data.IsImpostor && RoleInfo.getRoleInfoForPlayer(player).Contains(roleInfo)) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) continue;
+                }
                 Transform buttonParent = (new GameObject()).transform;
                 buttonParent.SetParent(container);
                 Transform button = UnityEngine.Object.Instantiate(buttonTemplate, buttonParent);
