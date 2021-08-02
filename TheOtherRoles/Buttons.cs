@@ -717,6 +717,7 @@ namespace TheOtherRoles
                                         AmongUsClient.Instance.FinishRpcImmediately(writer);
                                         RPCProcedure.dragBody(playerInfo.PlayerId);
                                         Undertaker.deadBodyDraged = deadBody;
+                                        Undertaker.isDraging = true;
                                         break;
                                     }
                                 }
@@ -728,6 +729,7 @@ namespace TheOtherRoles
                         writer.Write(PlayerControl.LocalPlayer.PlayerId);                        
                         AmongUsClient.Instance.FinishRpcImmediately(writer);
                         Undertaker.deadBodyDraged = null;
+                        Undertaker.isDraging = false;
                     }
  
                 },
