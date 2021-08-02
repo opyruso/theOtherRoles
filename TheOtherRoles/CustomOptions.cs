@@ -89,6 +89,7 @@ namespace TheOtherRoles {
         public static CustomOption shifterShiftsModifiers;
 
         public static CustomOption mayorSpawnRate;
+        public static CustomOption mayorCanSeeVote;
 
         public static CustomOption engineerSpawnRate;
 
@@ -285,6 +286,7 @@ namespace TheOtherRoles {
             shifterShiftsModifiers = CustomOption.Create(71, "Shifter Shifts Modifiers", false, shifterSpawnRate);
 
             mayorSpawnRate = CustomOption.Create(80, cs(Mayor.color, "Mayor"), rates, null, true);
+            mayorCanSeeVote = CustomOption.Create(81, "Mayor can see votes", false, mayorSpawnRate);
 
             engineerSpawnRate = CustomOption.Create(90, cs(Engineer.color, "Engineer"), rates, null, true);
 
