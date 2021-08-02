@@ -58,6 +58,7 @@ namespace TheOtherRoles {
         public static CustomOption guesserIsImpGuesserRate;
         public static CustomOption guesserNumberOfShots;
         public static CustomOption guesserSeeOnlyExistingRoles;
+        public static CustomOption guesserCantGuessSnitchIfTaksDone;
 
         public static CustomOption jesterSpawnRate;
         public static CustomOption jesterCanCallEmergency;
@@ -263,6 +264,7 @@ namespace TheOtherRoles {
             guesserIsImpGuesserRate = CustomOption.Create(311, "Chance That The Guesser Is An Impostor", rates, guesserSpawnRate);
             guesserNumberOfShots = CustomOption.Create(312, "Guesser Number Of Shots", 2f, 1f, 15f, 1f, guesserSpawnRate);
             guesserSeeOnlyExistingRoles = CustomOption.Create(313, "Guesser see only existing roles", false, guesserSpawnRate);
+            guesserCantGuessSnitchIfTaksDone = CustomOption.Create(314, "Guesser cannot guess Snitch if he has completed all tasks", false, guesserSpawnRate);
 
             jesterSpawnRate = CustomOption.Create(60, cs(Jester.color, "Jester"), rates, null, true);
             jesterCanCallEmergency = CustomOption.Create(61, "Jester can call emergency meeting", true, jesterSpawnRate);

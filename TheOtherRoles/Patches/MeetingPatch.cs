@@ -254,6 +254,11 @@ namespace TheOtherRoles.Patches {
 
             foreach (RoleInfo roleInfo in RoleInfo.allRoleInfos) {
                 if (roleInfo.roleId == RoleId.Spy || roleInfo.roleId == RoleId.Lover || roleInfo.roleId == RoleId.Guesser || roleInfo == RoleInfo.niceMini) continue; // Not guessable roles
+                if (CustomOptionHolder.guesserCantGuessSnitchIfTaksDone.getBool()) {
+                    var (playerCompleted, playerTotal) = TasksHandler.taskInfo(Snitch.snitch.Data);
+                    int numberOfLeftTasks = playerTotal - playerCompleted;
+                    if (numberOfLeftTasks <= 0 && roleInfo.roleId == RoleId.Snitch) continue;
+                }
                 if (CustomOptionHolder.guesserSeeOnlyExistingRoles.getBool()) {
                     bool found = false;
                     foreach (PlayerControl player in PlayerControl.AllPlayerControls) {
