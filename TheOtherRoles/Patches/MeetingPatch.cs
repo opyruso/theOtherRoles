@@ -262,7 +262,7 @@ namespace TheOtherRoles.Patches {
                 if (CustomOptionHolder.guesserSeeOnlyExistingRoles.getBool()) {
                     bool found = false;
                     foreach (PlayerControl player in PlayerControl.AllPlayerControls) {
-                        if (!player.Data.IsImpostor && RoleInfo.getRoleInfoForPlayer(player).Contains(roleInfo)) {
+                        if (player != null && player.Data != null && !player.Data.IsImpostor && RoleInfo.getRoleInfoForPlayer(player).Contains(roleInfo)) {
                             found = true;
                             break;
                         }
