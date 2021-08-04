@@ -16,25 +16,51 @@ namespace TheOtherRoles.Objects
         public static float nbRecordPerTrap = CustomOptionHolder.loggerNbRecordPerTrap.getFloat();
 
         private List<String> playersNameRecordedLastTick = new List<String>();
+        
+        public static Dictionary<int, string> colorTrap = new Dictionary<int, string>()
+        {
+            {0,"Blue"},
+            {1,"Red"},
+            {2,"Yellow"}
+        };
 
         public GameObject logTrap;
         private GameObject background;
 
         private static Sprite logTrapSprite;
-        private static Sprite backgroundSprite;
+        private Sprite backgroundSprite;
 
-        // LogTrapSprite is set as the same sprite to Garlic to confuse imposteur. 
+
         public static Sprite getLogTrapSprite()
         {
             if (logTrapSprite) return logTrapSprite;
-            logTrapSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Garlic.png", 300f);
+            logTrapSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Garlic.png", 300f);              
             return logTrapSprite;
         }
 
-        public static Sprite getBackgroundSprite()
+        // LogTrapSpriteBackground  is set as the same sprite to Garlic to confuse imposteur. 
+        // for logger , first = blue , second = red , third = yellow
+        public Sprite getBackgroundSprite()
         {
             if (backgroundSprite) return backgroundSprite;
-            backgroundSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.GarlicBackground.png", 60f);
+            if (Logger.logger != null && Logger.logger == PlayerControl.LocalPlayer)
+            {
+                int nbLogTrap = logTraps.Count;
+
+                switch (nbLogTrap)
+                {
+                    case 0: case 1: case 2:
+                        backgroundSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LoggerBackground"+ colorTrap[nbLogTrap] + ".png", 60f);
+                    break;
+                    default:
+                        backgroundSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.GarlicBackground.png", 60f);
+                    break;
+                }                                                                              
+            }
+            else
+            {
+                backgroundSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.GarlicBackground.png", 60f);
+            }
             return backgroundSprite;
         }
 
@@ -50,7 +76,7 @@ namespace TheOtherRoles.Objects
             var logTrapRenderer = logTrap.AddComponent<SpriteRenderer>();
             logTrapRenderer.sprite = getLogTrapSprite();
             var backgroundRenderer = background.AddComponent<SpriteRenderer>();
-            backgroundRenderer.sprite = getBackgroundSprite();
+            backgroundRenderer.sprite = getBackgroundSprite();            
             logTrap.SetActive(true);
             logTraps.Add(this);
         }
