@@ -372,8 +372,7 @@ namespace TheOtherRoles.Patches {
         }
 
         static void addLoggerInformationsPostfix(MeetingHud __instance)
-        {
-            Console.print("test de log");
+        {            
             bool isLogger = Logger.logger != null && PlayerControl.LocalPlayer == Logger.logger;
             if (isLogger)
             {

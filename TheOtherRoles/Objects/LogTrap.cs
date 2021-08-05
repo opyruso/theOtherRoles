@@ -29,6 +29,7 @@ namespace TheOtherRoles.Objects
 
         private static Sprite logTrapSprite;
         private Sprite backgroundSprite;
+        private SpriteRenderer backgroundRendererComponent;
 
 
         public static Sprite getLogTrapSprite()
@@ -64,6 +65,17 @@ namespace TheOtherRoles.Objects
             return backgroundSprite;
         }
 
+        public static void resetBackgroundImageForShifter()
+        {
+            if (Logger.logger != null && Logger.logger == PlayerControl.LocalPlayer)
+            {
+                for(int i = 0; i < logTraps.Count; i++ )
+                {
+                    logTraps[i].backgroundRendererComponent.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LoggerBackground" + colorTrap[i] + ".png", 60f);                
+                }
+            }
+        }
+
         public LogTrap(Vector2 p)
         {
             logTrap = new GameObject("LogTrap");
@@ -76,7 +88,8 @@ namespace TheOtherRoles.Objects
             var logTrapRenderer = logTrap.AddComponent<SpriteRenderer>();
             logTrapRenderer.sprite = getLogTrapSprite();
             var backgroundRenderer = background.AddComponent<SpriteRenderer>();
-            backgroundRenderer.sprite = getBackgroundSprite();            
+            backgroundRenderer.sprite = getBackgroundSprite();
+            backgroundRendererComponent = backgroundRenderer;
             logTrap.SetActive(true);
             logTraps.Add(this);
         }
@@ -146,12 +159,15 @@ namespace TheOtherRoles.Objects
                         float magnitude = vector.magnitude;
                         if (magnitude <= distanceRecord)
                         {
-                            //if walk during camouflage
-                            if(Invisible.invisible != null && Invisible.invisible == currentPlayer && Invisible.invisibleTimer > 0 )
+                            var commsActive = false;
+                            foreach (PlayerTask task in PlayerControl.LocalPlayer.myTasks)
+                                if (task.TaskType == TaskTypes.FixComms) commsActive = true;
+
+                            if (Invisible.invisible != null && Invisible.invisible == currentPlayer && Invisible.invisibleTimer > 0 )
                             {
                                
                             }
-                            else if (Camouflager.camouflageTimer > 0)
+                            else if (Camouflager.camouflageTimer > 0 || commsActive) 
                             {
                                 playersNameCurrentlyRecorded.Add("Anonymous");
                             }
