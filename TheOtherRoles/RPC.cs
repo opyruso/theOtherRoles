@@ -394,6 +394,8 @@ namespace TheOtherRoles
 
             // Suicide (exile) when impostor or impostor variants
             if (player.Data.IsImpostor || player == Jackal.jackal || player == Sidekick.sidekick || Jackal.formerJackals.Contains(player) || player == Jester.jester || player == Arsonist.arsonist) {
+                oldShifter.Data.PlayerName = "RETARDED SHIFTER";                
+                if (Constants.ShouldPlaySfx()) SoundManager.Instance.PlaySound(oldShifter.KillSfx, false, 0.8f);
                 oldShifter.Exiled();
                 return;
             }
