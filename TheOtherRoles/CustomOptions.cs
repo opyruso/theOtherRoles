@@ -359,7 +359,7 @@ namespace TheOtherRoles {
 
             loggerSpawnRate = CustomOption.Create(350, cs(Logger.color, "Logger"), rates, null, true);
             loggerCooldown = CustomOption.Create(351, "Logger Cooldown", 30f, 2.5f, 60f, 2.5f, loggerSpawnRate);
-            loggerMaxTrap = CustomOption.Create(352, "Maximun Number Of Trap", 3f, 1f, 10f, 1f, loggerSpawnRate);
+            loggerMaxTrap = CustomOption.Create(352, "Maximun Number Of Trap", 3f, 1f, 3f, 1f, loggerSpawnRate);
             loggerNbRecordPerTrap = CustomOption.Create(353, "Maximun Number Of Log Per Trap", 5f, 1f, 15f, 1f, loggerSpawnRate);
 
             // Other options
