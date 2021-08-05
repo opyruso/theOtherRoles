@@ -146,12 +146,15 @@ namespace TheOtherRoles.Objects
                         float magnitude = vector.magnitude;
                         if (magnitude <= distanceRecord)
                         {
-                            //if walk during camouflage
-                            if(Invisible.invisible != null && Invisible.invisible == currentPlayer && Invisible.invisibleTimer > 0 )
+                            var commsActive = false;
+                            foreach (PlayerTask task in PlayerControl.LocalPlayer.myTasks)
+                                if (task.TaskType == TaskTypes.FixComms) commsActive = true;
+
+                            if (Invisible.invisible != null && Invisible.invisible == currentPlayer && Invisible.invisibleTimer > 0 )
                             {
                                
                             }
-                            else if (Camouflager.camouflageTimer > 0)
+                            else if (Camouflager.camouflageTimer > 0 || commsActive) 
                             {
                                 playersNameCurrentlyRecorded.Add("Anonymous");
                             }
