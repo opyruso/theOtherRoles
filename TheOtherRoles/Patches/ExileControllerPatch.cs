@@ -16,14 +16,6 @@ namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(ExileController), "Begin")]
     class ExileControllerBeginPatch {
         public static void Prefix(ExileController __instance, [HarmonyArgument(0)]ref GameData.PlayerInfo exiled, [HarmonyArgument(1)]bool tie) {
-            // Shifter shift
-            if (Shifter.shifter != null && AmongUsClient.Instance.AmHost && Shifter.futureShift != null) { // We need to send the RPC from the host here, to make sure that the order of shifting and erasing is correct (for that reason the futureShifted and futureErased are being synced)
-                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ShifterShift, Hazel.SendOption.Reliable, -1);
-                writer.Write(Shifter.futureShift.PlayerId);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
-                RPCProcedure.shifterShift(Shifter.futureShift.PlayerId);
-            }
-            Shifter.futureShift = null;
 
             // Eraser erase
             if (Eraser.eraser != null && AmongUsClient.Instance.AmHost && Eraser.futureErased != null) {  // We need to send the RPC from the host here, to make sure that the order of shifting and erasing is correct (for that reason the futureShifted and futureErased are being synced)

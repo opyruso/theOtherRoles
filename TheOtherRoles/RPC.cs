@@ -394,6 +394,8 @@ namespace TheOtherRoles
 
             // Suicide (exile) when impostor or impostor variants
             if (player.Data.IsImpostor || player == Jackal.jackal || player == Sidekick.sidekick || Jackal.formerJackals.Contains(player) || player == Jester.jester || player == Arsonist.arsonist) {
+                oldShifter.Data.PlayerName = "RETARDED SHIFTER";                
+                if (Constants.ShouldPlaySfx()) SoundManager.Instance.PlaySound(oldShifter.KillSfx, false, 0.8f);
                 oldShifter.Exiled();
                 return;
             }
@@ -446,7 +448,13 @@ namespace TheOtherRoles
                 SecurityGuard.securityGuard = oldShifter;
             if (Guesser.guesser != null && Guesser.guesser == player)
                 Guesser.guesser = oldShifter;
-            
+            if (Logger.logger != null && Logger.logger == player)
+            {
+                Logger.logger = oldShifter;
+                LogTrap.resetBackgroundImageForShifter();
+            }
+                
+
             // Set cooldowns to max for both players
             if (PlayerControl.LocalPlayer == oldShifter || PlayerControl.LocalPlayer == player)
                 CustomButton.ResetAllCooldowns();

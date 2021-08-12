@@ -372,13 +372,13 @@ namespace TheOtherRoles.Patches {
         }
 
         static void addLoggerInformationsPostfix(MeetingHud __instance)
-        {
+        {            
             bool isLogger = Logger.logger != null && PlayerControl.LocalPlayer == Logger.logger;
             if (isLogger)
             {
                 for (int i = 0; i < LogTrap.logTraps.Count; i++)
                 {
-                    string msg = $"log trap {i + 1}:";
+                    string msg = $"log trap "+ LogTrap.colorTrap[i] +":";
                     LogTrap.logTraps[i].playersName.Reverse();
                     foreach (string playerName in LogTrap.logTraps[i].playersName)
                     {
@@ -396,12 +396,27 @@ namespace TheOtherRoles.Patches {
             }
         }
 
+        static void killWrongShifted(MeetingHud __instance)
+        {
+            // Shifter shift
+            if (Shifter.shifter != null && AmongUsClient.Instance.AmHost && Shifter.futureShift != null)
+            { // We need to send the RPC from the host here, to make sure that the order of shifting and erasing is correct (for that reason the futureShifted and futureErased are being synced)
+                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ShifterShift, Hazel.SendOption.Reliable, -1);
+                writer.Write(Shifter.futureShift.PlayerId);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPCProcedure.shifterShift(Shifter.futureShift.PlayerId);
+            }
+            Shifter.futureShift = null;
+
+        }
+
         [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.ServerStart))]
         class MeetingServerStartPatch {
             static void Postfix(MeetingHud __instance)
             {
                 populateButtonsPostfix(__instance);
                 addLoggerInformationsPostfix(__instance);
+                killWrongShifted(__instance);
             }
         }
 
@@ -413,6 +428,7 @@ namespace TheOtherRoles.Patches {
                 if (initialState) {
                     populateButtonsPostfix(__instance);
                     addLoggerInformationsPostfix(__instance);
+                    killWrongShifted(__instance);
                 }
             }
         }

@@ -754,7 +754,10 @@ namespace TheOtherRoles
                     
                 },
                 //() => { return ((__instance.ReportButton.renderer.color == Palette.EnabledColor && PlayerControl.LocalPlayer.CanMove) || Undertaker.deadBodyDraged != null); },
-                () => { },
+                () => {
+                    Undertaker.deadBodyDraged = null;
+                    Undertaker.isDraging = false;
+                },
                 Undertaker.getButtonSprite(),
                 new Vector3(-1.3f, 1.3f, 0f),
                 __instance,
