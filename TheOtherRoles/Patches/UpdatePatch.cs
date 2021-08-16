@@ -116,6 +116,8 @@ namespace TheOtherRoles.Patches {
                 setPlayerNameColor(Arsonist.arsonist, Arsonist.color);
             } else if (Guesser.guesser != null && Guesser.guesser == PlayerControl.LocalPlayer) {
                 setPlayerNameColor(Guesser.guesser, Guesser.guesser.Data.IsImpostor ? Palette.ImpostorRed : Guesser.color);
+            } else if (Bait.bait != null && Bait.bait == PlayerControl.LocalPlayer) {
+                setPlayerNameColor(Bait.bait, Bait.color);
             }
 
             // No else if here, as a Lover of team Jackal needs the colors
@@ -220,10 +222,8 @@ namespace TheOtherRoles.Patches {
             }
 
             // Set camouflaged look (overrides camouflage look if existent)
-            if (Camouflager.camouflageTimer > 0f)
-            {
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls)
-                {
+            if (Camouflager.camouflageTimer > 0f) {
+                foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
                     p.nameText.text = "";
                     p.myRend.material.SetColor("_BackColor", Palette.PlayerColors[6]);
                     p.myRend.material.SetColor("_BodyColor", Palette.PlayerColors[6]);
@@ -231,14 +231,12 @@ namespace TheOtherRoles.Patches {
                     Helpers.setSkinWithAnim(p.MyPhysics, 0);
                     bool spawnPet = false;
                     if (p.CurrentPet == null) spawnPet = true;
-                    else if (p.CurrentPet.ProdId != DestroyableSingleton<HatManager>.Instance.AllPets[0].ProdId)
-                    {
+                    else if (p.CurrentPet.ProdId != DestroyableSingleton<HatManager>.Instance.AllPets[0].ProdId) {
                         UnityEngine.Object.Destroy(p.CurrentPet.gameObject);
                         spawnPet = true;
                     }
 
-                    if (spawnPet)
-                    {
+                    if (spawnPet) {
                         p.CurrentPet = UnityEngine.Object.Instantiate<PetBehaviour>(DestroyableSingleton<HatManager>.Instance.AllPets[0]);
                         p.CurrentPet.transform.position = p.transform.position;
                         p.CurrentPet.Source = p;
@@ -247,14 +245,12 @@ namespace TheOtherRoles.Patches {
             } 
             
             // Set invis look (overrides camouflage look if existent)
-            if (Invisible.invisibleTimer > 0f)
-            {
+            if (Invisible.invisibleTimer > 0f) {
                 Invisible.setInvisible();
             }
 
             // Invis reset
-            if (oldInvisTimer > 0f && Invisible.invisibleTimer <= 0f)
-            {
+            if (oldInvisTimer > 0f && Invisible.invisibleTimer <= 0f) {
                 Invisible.resetInvisible();
                 HudManagerStartPatch.resetInvisibleButton();
             }
@@ -265,8 +261,7 @@ namespace TheOtherRoles.Patches {
             }
 
             // Morphling reset
-            if ((oldMorphTimer > 0f || oldCamouflageTimer > 0f) && Camouflager.camouflageTimer <= 0f && Morphling.morphTimer <= 0f && Morphling.morphling != null)
-            {
+            if ((oldMorphTimer > 0f || oldCamouflageTimer > 0f) && Camouflager.camouflageTimer <= 0f && Morphling.morphTimer <= 0f && Morphling.morphling != null) {
                 Morphling.resetMorph();
             }
         }

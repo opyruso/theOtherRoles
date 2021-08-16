@@ -82,8 +82,7 @@ namespace TheOtherRoles
             lightsOutButton.Timer = lightsOutButton.MaxTimer;
         }
 
-        public static void resetTimeMasterButton()
-        {
+        public static void resetTimeMasterButton() {
             timeMasterShieldButton.Timer = timeMasterShieldButton.MaxTimer;
             timeMasterShieldButton.isEffectActive = false;
             timeMasterShieldButton.killButtonManager.TimerText.color = Palette.EnabledColor;
@@ -244,13 +243,16 @@ namespace TheOtherRoles
                 () => {
                     medicShieldButton.Timer = 0f;
  
-                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.MedicSetShielded, Hazel.SendOption.Reliable, -1);
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, Medic.setShieldAfterMeeting ? (byte)CustomRPC.SetFutureShielded : (byte)CustomRPC.MedicSetShielded, Hazel.SendOption.Reliable, -1);
                     writer.Write(Medic.currentTarget.PlayerId);
                     AmongUsClient.Instance.FinishRpcImmediately(writer);
-                    RPCProcedure.medicSetShielded(Medic.currentTarget.PlayerId);
+                    if (Medic.setShieldAfterMeeting)
+                        RPCProcedure.setFutureShielded(Medic.currentTarget.PlayerId);
+                    else
+                        RPCProcedure.medicSetShielded(Medic.currentTarget.PlayerId);
                 },
                 () => { return Medic.medic != null && Medic.medic == PlayerControl.LocalPlayer && !PlayerControl.LocalPlayer.Data.IsDead; },
-                () => { return !Medic.usedShield && Medic.currentTarget && Medic.currentTarget.Visible && PlayerControl.LocalPlayer.CanMove; },
+                () => { return !Medic.usedShield && Medic.currentTarget && PlayerControl.LocalPlayer.CanMove; },
                 () => {},
                 Medic.getButtonSprite(),
                 new Vector3(-1.3f, 0, 0),
@@ -279,17 +281,14 @@ namespace TheOtherRoles
             // Morphling morph
             morphlingButton = new CustomButton(
                 () => {
-                    if (Morphling.sampledTarget != null)
-                    {
+                    if (Morphling.sampledTarget != null) {
                         MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.MorphlingMorph, Hazel.SendOption.Reliable, -1);
                         writer.Write(Morphling.sampledTarget.PlayerId);
                         AmongUsClient.Instance.FinishRpcImmediately(writer);
                         RPCProcedure.morphlingMorph(Morphling.sampledTarget.PlayerId);
                         Morphling.sampledTarget = null;
                         morphlingButton.EffectDuration = Morphling.duration;
-                    }
-                    else if (Morphling.currentTarget != null)
-                    {
+                    } else if (Morphling.currentTarget != null) {
                         Morphling.sampledTarget = Morphling.currentTarget;
                         morphlingButton.Sprite = Morphling.getMorphSprite();
                         morphlingButton.EffectDuration = 1f;
@@ -311,8 +310,7 @@ namespace TheOtherRoles
                 true,
                 Morphling.duration,
                 () => {
-                    if (Morphling.sampledTarget == null)
-                    {
+                    if (Morphling.sampledTarget == null) {
                         morphlingButton.Timer = morphlingButton.MaxTimer;
                         morphlingButton.Sprite = Morphling.getSampleSprite();
                     }
@@ -409,12 +407,7 @@ namespace TheOtherRoles
                 },
                 () => { return Tracker.tracker != null && Tracker.tracker == PlayerControl.LocalPlayer && !PlayerControl.LocalPlayer.Data.IsDead; },
                 () => { return PlayerControl.LocalPlayer.CanMove && Tracker.currentTarget != null && Tracker.currentTarget.Visible && !Tracker.usedTracker; },
-                () => {
-                    if (CustomOptionHolder.trackerResetAfterMeeting.getBool())
-                    {
-                        Tracker.resetTrack();
-                    }
-                },
+                () => { if(Tracker.resetTargetAfterMeeting) Tracker.resetTracked(); },
                 Tracker.getButtonSprite(),
                 new Vector3(-1.3f, 0, 0),
                 __instance,
@@ -695,7 +688,7 @@ namespace TheOtherRoles
                 KeyCode.F
             );
 
-            // Cleaner Clean
+            // Undertaker move
             undertakerDragButton = new CustomButton(
                 () => {
                     if(Undertaker.deadBodyDraged == null)
@@ -910,6 +903,7 @@ namespace TheOtherRoles
                 }
             );
 
+			//logger put log
             loggerButton = new CustomButton(
                 () => {
                     loggerButton.Timer = loggerButton.MaxTimer;

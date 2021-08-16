@@ -120,6 +120,7 @@ namespace TheOtherRoles {
         public static CustomOption medicSpawnRate;
         public static CustomOption medicShowShielded;
         public static CustomOption medicShowAttemptToShielded;
+        public static CustomOption medicSetShieldAfterMeeting;
 
         public static CustomOption swapperSpawnRate;
         public static CustomOption swapperCanCallEmergency;
@@ -137,11 +138,12 @@ namespace TheOtherRoles {
 
         public static CustomOption trackerSpawnRate;
         public static CustomOption trackerUpdateIntervall;
-        public static CustomOption trackerResetAfterMeeting;
+        public static CustomOption trackerResetTargetAfterMeeting;
 
         public static CustomOption snitchSpawnRate;
-        public static CustomOption snitchLeftTasksForImpostors;
-        public static CustomOption snitchNoGuesserImpostors;
+        public static CustomOption snitchLeftTasksForReveal;
+        public static CustomOption snitchIncludeTeamJackal;
+        public static CustomOption snitchTeamJackalUseDifferentArrowColor;
 
         public static CustomOption spySpawnRate;
         public static CustomOption spyCanDieToSheriff;
@@ -160,7 +162,6 @@ namespace TheOtherRoles {
         public static CustomOption undertakerSpawnRate;
         public static CustomOption undertakerDragingDelaiAfterKill;
         
-
         public static CustomOption warlockSpawnRate;
         public static CustomOption warlockCooldown;
         public static CustomOption warlockRootTime;
@@ -175,6 +176,10 @@ namespace TheOtherRoles {
         public static CustomOption loggerCooldown;
         public static CustomOption loggerMaxTrap;
         public static CustomOption loggerNbRecordPerTrap;
+
+        public static CustomOption baitSpawnRate;
+        public static CustomOption baitHighlightAllVents;
+        public static CustomOption baitReportDelay;
 
         public static CustomOption maxNumberOfMeetings;
         public static CustomOption blockSkippingInEmergencyMeetings;
@@ -237,8 +242,8 @@ namespace TheOtherRoles {
             cleanerSpawnRate = CustomOption.Create(260, cs(Cleaner.color, "Cleaner"), rates, null, true);
             cleanerCooldown = CustomOption.Create(261, "Cleaner Cooldown", 30f, 10f, 60f, 2.5f, cleanerSpawnRate);
 
-            undertakerSpawnRate = CustomOption.Create(330, cs(Undertaker.color, "Undertaker"), rates, null, true);
-            undertakerDragingDelaiAfterKill = CustomOption.Create(331, "Draging delai after kill", 0f, 0f, 15, 1f, undertakerSpawnRate);                     
+            undertakerSpawnRate = CustomOption.Create(360, cs(Undertaker.color, "Undertaker"), rates, null, true);
+            undertakerDragingDelaiAfterKill = CustomOption.Create(361, "Draging delai after kill", 0f, 0f, 15, 1f, undertakerSpawnRate);                     
 
             warlockSpawnRate = CustomOption.Create(270, cs(Cleaner.color, "Warlock"), rates, null, true);
             warlockCooldown = CustomOption.Create(271, "Warlock Cooldown", 30f, 10f, 60f, 2.5f, warlockSpawnRate);
@@ -320,6 +325,7 @@ namespace TheOtherRoles {
             medicSpawnRate = CustomOption.Create(140, cs(Medic.color, "Medic"), rates, null, true);
             medicShowShielded = CustomOption.Create(143, "Show Shielded Player", new string[] {"Everyone", "Shielded + Medic", "Medic"}, medicSpawnRate);
             medicShowAttemptToShielded = CustomOption.Create(144, "Shielded Player Sees Murder Attempt", false, medicSpawnRate);
+            medicSetShieldAfterMeeting = CustomOption.Create(145, "Shield Will Be Set After The Next Meeting", false, medicSpawnRate);
 
             swapperSpawnRate = CustomOption.Create(150, cs(Swapper.color, "Swapper"), rates, null, true);
             swapperCanCallEmergency = CustomOption.Create(151, "Swapper can call emergency meeting", false, swapperSpawnRate);
@@ -337,12 +343,12 @@ namespace TheOtherRoles {
 
             trackerSpawnRate = CustomOption.Create(200, cs(Tracker.color, "Tracker"), rates, null, true);
             trackerUpdateIntervall = CustomOption.Create(201, "Tracker Update Intervall", 0.5f, 0.2f, 5f, 0.2f, trackerSpawnRate);
-            trackerResetAfterMeeting = CustomOption.Create(202, "Reset tracking after meeting", false, trackerSpawnRate);
+            trackerResetTargetAfterMeeting = CustomOption.Create(202, "Tracker Reset Target After Meeting", false, trackerSpawnRate);
 
             snitchSpawnRate = CustomOption.Create(210, cs(Snitch.color, "Snitch"), rates, null, true);
-            snitchLeftTasksForImpostors = CustomOption.Create(211, "Task Count Where Impostors See Snitch", 1f, 0f, 5f, 1f, snitchSpawnRate);
-
-            snitchNoGuesserImpostors = CustomOption.Create(212, "No Guesser with Snitch", false, snitchSpawnRate);
+            snitchLeftTasksForReveal = CustomOption.Create(211, "Task Count Where The Snitch Will Be Revealed", 1f, 0f, 5f, 1f, snitchSpawnRate);
+            snitchIncludeTeamJackal = CustomOption.Create(212, "Include Team Jackal", false, snitchSpawnRate);
+            snitchTeamJackalUseDifferentArrowColor = CustomOption.Create(213, "Use Different Arrow Color For Team Jackal", true, snitchIncludeTeamJackal);
 
             spySpawnRate = CustomOption.Create(240, cs(Spy.color, "Spy"), rates, null, true);
             spyCanDieToSheriff = CustomOption.Create(241, "Spy Can Die To Sheriff", false, spySpawnRate);
@@ -362,6 +368,10 @@ namespace TheOtherRoles {
             loggerMaxTrap = CustomOption.Create(352, "Maximun Number Of Trap", 3f, 1f, 3f, 1f, loggerSpawnRate);
             loggerNbRecordPerTrap = CustomOption.Create(353, "Maximun Number Of Log Per Trap", 5f, 1f, 15f, 1f, loggerSpawnRate);
 
+            baitSpawnRate = CustomOption.Create(330, cs(Bait.color, "Bait"), rates, null, true);
+            baitHighlightAllVents = CustomOption.Create(331, "Highlight All Vents If A Vent Is Occupied", false, baitSpawnRate);
+            baitReportDelay = CustomOption.Create(332, "Bait Report Delay", 0f, 0f, 10f, 1f, baitSpawnRate);
+
             // Other options
             maxNumberOfMeetings = CustomOption.Create(3, "Number Of Meetings (excluding Mayor meeting)", 10, 0, 15, 1, null, true);
             blockSkippingInEmergencyMeetings = CustomOption.Create(4, "Block Skipping In Emergency Meetings", false);
@@ -370,8 +380,8 @@ namespace TheOtherRoles {
 
             blockedRolePairings.Add((byte)RoleId.Vampire, new [] { (byte)RoleId.Warlock});
             blockedRolePairings.Add((byte)RoleId.Warlock, new [] { (byte)RoleId.Vampire});
-            blockedRolePairings.Add((byte)RoleId.Spy, new[] { (byte)RoleId.Mini });
-            blockedRolePairings.Add((byte)RoleId.Mini, new[] { (byte)RoleId.Spy });
+            blockedRolePairings.Add((byte)RoleId.Spy, new [] { (byte)RoleId.Mini});
+            blockedRolePairings.Add((byte)RoleId.Mini, new [] { (byte)RoleId.Spy});
             
         }
     }
@@ -680,7 +690,7 @@ namespace TheOtherRoles {
             var hudString = sb.ToString();
 
             int defaultSettingsLines = 19;
-            int roleSettingsLines = defaultSettingsLines + 34;
+            int roleSettingsLines = defaultSettingsLines + 38;
             int detailedSettingsP1 = roleSettingsLines + 37;
             int detailedSettingsP2 = detailedSettingsP1 + 38;
             int end1 = hudString.TakeWhile(c => (defaultSettingsLines -= (c == '\n' ? 1 : 0)) > 0).Count();

@@ -11,6 +11,7 @@ namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.RpcSetInfected))]
     class SetInfectedPatch
     {
+
         public static void Postfix([HarmonyArgument(0)]Il2CppReferenceArray<GameData.PlayerInfo> infected)
         {
             MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ResetVaribles, Hazel.SendOption.Reliable, -1);
@@ -22,19 +23,6 @@ namespace TheOtherRoles.Patches {
         }
 
         private static void assignRoles() {
-
-
-            if (CustomOptionHolder.snitchNoGuesserImpostors.getBool())
-            {
-                CustomOptionHolder.blockedRolePairings.Add((byte)RoleId.Guesser, new[] { (byte)RoleId.Snitch });
-                CustomOptionHolder.blockedRolePairings.Add((byte)RoleId.Snitch, new[] { (byte)RoleId.Guesser });
-            }
-            else
-            {
-                CustomOptionHolder.blockedRolePairings.Remove((byte)RoleId.Guesser);
-                CustomOptionHolder.blockedRolePairings.Remove((byte)RoleId.Snitch);
-            }
-
             var data = getRoleAssignmentData();
             assignSpecialRoles(data); // Assign special roles like mafia and lovers first as they assign a role to multiple players and the chances are independent of the ticket system
             selectFactionForFactionIndependentRoles(data);
@@ -105,6 +93,7 @@ namespace TheOtherRoles.Patches {
             crewSettings.Add((byte)RoleId.Tracker, CustomOptionHolder.trackerSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Snitch, CustomOptionHolder.snitchSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Logger, CustomOptionHolder.loggerSpawnRate.getSelection());
+            crewSettings.Add((byte)RoleId.Bait, CustomOptionHolder.baitSpawnRate.getSelection());
             if (impostors.Count > 1) {
                 // Only add Spy if more than 1 impostor as the spy role is otherwise useless
                 crewSettings.Add((byte)RoleId.Spy, CustomOptionHolder.spySpawnRate.getSelection());
