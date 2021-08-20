@@ -271,7 +271,7 @@ namespace TheOtherRoles
                 },
                 () => { return Shifter.shifter != null && Shifter.shifter == PlayerControl.LocalPlayer && !PlayerControl.LocalPlayer.Data.IsDead; },
                 () => { return Shifter.currentTarget && Shifter.currentTarget.Visible && Shifter.futureShift == null && PlayerControl.LocalPlayer.CanMove; },
-                () => { },
+                () => { shifterShiftButton.Timer = 10f; },
                 Shifter.getButtonSprite(),
                 new Vector3(-1.3f, 0, 0),
                 __instance,
@@ -407,7 +407,10 @@ namespace TheOtherRoles
                 },
                 () => { return Tracker.tracker != null && Tracker.tracker == PlayerControl.LocalPlayer && !PlayerControl.LocalPlayer.Data.IsDead; },
                 () => { return PlayerControl.LocalPlayer.CanMove && Tracker.currentTarget != null && Tracker.currentTarget.Visible && !Tracker.usedTracker; },
-                () => { if(Tracker.resetTargetAfterMeeting) Tracker.resetTracked(); },
+                () => { 
+                    if(Tracker.resetTargetAfterMeeting) Tracker.resetTracked();
+                    trackerButton.Timer = 10f;
+                },
                 Tracker.getButtonSprite(),
                 new Vector3(-1.3f, 0, 0),
                 __instance,
