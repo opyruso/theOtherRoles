@@ -7,7 +7,7 @@ This mod is not affiliated with Among Us or Innersloth LLC, and the content cont
 ![eisbison infographic](./Images/TOR_roles.jpg)
 
 
-# The Other Roles
+# The Forgotten Roles
 
 The **The Forgotten Roles**, is a mod for [Among Us](https://store.steampowered.com/app/945360/Among_Us) which adds many new roles, new [Settings](#settings), new [Custom Hats](#custom-hats) and support for [10+ Player Lobbies](#Custom-Servers-and-10+-Players) to the game.
 Even more roles are coming soon :)
@@ -77,71 +77,6 @@ Not working? You might want to install the dependency [vc_redist](https://aka.ms
 3. Enable `winhttp.dll` via the proton winecfg (https://docs.bepinex.dev/articles/advanced/steam_interop.html#open-winecfg-for-the-target-game)
 4. Launch the game via Steam
 
-# Custom Servers and 10+ Players
-We always recommend you to play on custom servers rather than on the official ones. If you want to play with more than 10 players in one lobby, you're required to use a custom server. Credits for the original implementation that allowed 10+ player lobbies go to the creaters of the [CrowdedMod](https://github.com/CrowdedMods/CrowdedMod).
-
-**Setup the Clients:**
-1. Open the region menu where you can choose between the different regions
-2. Select the region *Custom*
-3. Enter the ip/domain and the port of your custom server in the corresponding text fields
-
-**Setup the Server:**
-1. Get the [Impostor](https://github.com/Impostor/Impostor) release for the Among Us version **2021.3.31 - 2021.4.2**
-2. Follow the steps (using the server release you just downloaded) on the official [Impostor-Documentation](https://github.com/Impostor/Impostor/wiki/Running-the-server)
-3. Make sure to set the following values to false in the `config.json` file:
-```
-    ...
-    "AntiCheat": {
-      "Enabled": false,
-      "BanIpFromGame": false
-    }
-```
-4. Make sure to forward the right ports on the hosting machine
-5. Run the server and setup the client
-
-**Setting up Server as Docker Container:** \
-If you want to run the server as a docker container you'll need to use the image
-```
-aeonlucid/impostor:nightly
-```
-(Currently only the "nightly" tag is starting a server supporting 2021.3.31 or later)
-
-In addition to running it, the environment variables to disable the AntiCheat feature need to be set.
-```
-IMPOSTOR_AntiCheat__Enabled=false
-IMPOSTOR_AntiCheat__BanIpFromGame=false
-```
-
-Example to docker run command:
-```
-docker run -p 22023:22023/udp --env IMPOSTOR_AntiCheat__Enabled=false --env IMPOSTOR_AntiCheat__BanIpFromGame=false aeonlucid/impostor:nightly
-```
-
-Or use to run it in the background
-```
-docker run -d -p 22023:22023/udp --env IMPOSTOR_AntiCheat__Enabled=false --env IMPOSTOR_AntiCheat__BanIpFromGame=false aeonlucid/impostor:nightly
-```
-
-
-# Credits & Resources
-[OxygenFilter](https://github.com/NuclearPowered/Reactor.OxygenFilter) - For all the version v2.3.0 to v2.6.1, we were using the OxygenFilter for automatic deobfuscation\
-[Reactor](https://github.com/NuclearPowered/Reactor) - The framework used for all version before v2.0.0\
-[BepInEx](https://github.com/BepInEx) - Used to hook game functions\
-[Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) - Custom game options by **DorCoMaNdO**:
-- Before v1.6: We used the default Essentials release
-- v1.6-v1.8: We slightly changed the default Essentials. The changes can be found on this [branch](https://github.com/Eisbison/Reactor-Essentials/tree/feature/TheOtherRoles-Adaption) of our fork.
-- v2.0.0 and later: As we're not using Reactor anymore, we are using our own implementation, inspired by the one from **DorCoMaNdO**
-
-[Jackal and Sidekick](https://www.twitch.tv/dhalucard) - Original idea for the Jackal and Sidekick comes from **Dhalucard**\
-[Among-Us-Love-Couple-Mod](https://github.com/Woodi-dev/Among-Us-Love-Couple-Mod) - Idea for the Lovers role comes from **Woodi-dev**\
-[Jester](https://github.com/Maartii/Jester) - Idea for the Jester role comes from **Maartii**\
-[ExtraRolesAmongUs](https://github.com/NotHunter101/ExtraRolesAmongUs) - Idea for the Engineer and Medic role comes from **NotHunter101**. Also some code snippets come of the implementation were used.\
-[Among-Us-Sheriff-Mod](https://github.com/Woodi-dev/Among-Us-Sheriff-Mod) - Idea for the Sheriff role comes from **Woodi-dev**\
-[TooManyRolesMods](https://github.com/Hardel-DW/TooManyRolesMods) - Idea for the Detective and Time Master roles comes from **Hardel-DW**. Also some code snippets of the implementation were used.\
-[TownOfUs](https://github.com/slushiegoose/Town-Of-Us) - Idea for the Swapper, Shifter, Arsonist and a similar Mayor role come from **Slushiegoose**\
-[Ottomated](https://twitter.com/ottomated_) - Idea for the Morphling, Snitch and Camouflager role come from **Ottomated**\
-[Crowded-Mod](https://github.com/CrowdedMods/CrowdedMod) - Our implementation for 10+ player lobbies is inspired by the one from the **Crowded Mod Team**\
-
 # Settings
 The mod adds a few new settings to Among Us (in addition to the role settings):
 - **Streamer Mode:** You can activate the streamer mode in the Among Us settings. It hides the lobby code, the custom server ip and the custom server port. You can set a custom lobby code replacement text, by changing the *Streamer Mode Replacement Text* in the `BepInEx\config\me.eisbison.theotherroles.cfg` file.
@@ -156,6 +91,10 @@ The mod adds a few new settings to Among Us (in addition to the role settings):
 - **Dleks:** You are now able to select the Dleks map.
 - **Task Counts:** You are now able to select more tasks.
 - **Role Summary:** When a game ends there will be a list of all players and their roles and their task progress
+
+# Settings
+The mod adds a few new feature to Among Us:
+- **Scan** Crewmates can use scanner at the same time (prevent scan abuse)
 
 ### Task Count Limits per map
 You can configure:
@@ -173,35 +112,6 @@ Example: If you configure 4 common tasks on Airship crewmates will only receive 
 | Polus | 4 | 14 | 15
 | Airship | 2 | 23 | 15
 -----------------------
-
-
-# Custom Hats
-## Create and submit new hat designs
-We're awaiting your creative hat designs and we'll integrate all the good ones in our mod.
-Here are a few instructions, on how to create a custom hat:
-
-- **Creation:** A hat consists of up to three textures. The aspect ratio of the textures has to be `4:5`, we recommend `300px:375px`:
-  - `Main texture (required)`:
-    - This is the main texture of your hat. It will usually be rendered in front of the player, if you set the `behind` parameter it will be rendered behind the player.
-    - The name of the texture needs to follow the pattern *hatname.png*, but you can also set some additional parameters in the file name by adding `_parametername` to the file name (before the *.png*).
-    - Parameter `bounce`: This parameter determines whether the hat will bounce while you're walking or not.
-    - Parameter `adaptive`: If this parameter is set, the Among Us coloring shader will be applied (the shader that replaces some colors with the colors that your character is wearing in the game). The color red (#ff0000) will be replaced with the primary color of your player and the color blue (#0000ff) with the secondary color. Also other colors will be affected and changed, you can have a look at the texture of the [Crewmate Hat](https://static.wikia.nocookie.net/among-us-wiki/images/e/e0/Crewmate_hat.png) to see how this feature should be used.
-    - Parameter `behind`: If this parameter is set, the main texture will be rendered behind the player.
-  - `Flipped texture (optional)`:
-    - This texture will be rendered instead of the Main texture, when facing the left.
-    - The name of the texture needs to follow the pattern `hatname_flip.png`.
-  - `Back texture (optional)`:
-    - This texture will be rendered behind the player.
-    - The name of the texture needs to follow the pattern `hatname_back.png`.
-  - `Flipped Back texture (optional)`:
-    - This texture will be rendered instead of the Back texture, when facing the left.
-    - The name of the texture needs to follow the pattern `hatname_back_flip.png`.
-  - `Climb texture (optional)`:
-    - This texture will be rendered in front of the player, when he's climbing.
-    - The name of the texture needs to follow the pattern `hatname_climb.png`.
-- **Testing:** You can test your hat design by putting all the files in the `\TheOtherHats\Test` subfolder of your mod folder. Then whenever you start a freeplay game, you and all the dummies will be wearing the new hat. You don't need to restart Among Us if you change the hat files, just exit and reenter the freeplay mode.
-
-- **Submission:** If you got a hat design, you can submit it on our [Discord server](https://discord.gg/77RkMJHWsM). We'll look at all the hats and add all the good ones to the game.
 
 # Colors
 ![TOR Colors](./Images/TOR_colors.jpg)
@@ -331,7 +241,7 @@ ex Lover surviving as the partnership was erased before. Also a Jester win would
 The Trickster is an Impostor that can place 3 jack-in-the-boxes that are invisible at first to other players. \
 If the Trickster has placed all of his boxes they will be converted into a vent network usable only by the Trickster himself, but the boxes are revealed to the others. \
 If the boxes are converted to a vent network, the Trickster gains a new ability "Lights out" to limit the visibility of Non-Impostors, that cannot be fixed by other players. Lights are automatically restored after a while. \
-
+boxes dosn't have animation.
 \
 **NOTE:**
 - Impostors will get a text indicator at the bottom of the screen to notify them if the lights are out due to the Trickster ability, as there is no sabotage arrows or task to sabotage text to otherwise notify them about it.
@@ -847,6 +757,98 @@ The vents will be sealed after the next meeting, players can't enter or exit sea
 | Number Of Screws Per Vent | The number of screws it takes to seal a vent
 -----------------------
 
+# Custom Servers and 10+ Players
+We always recommend you to play on custom servers rather than on the official ones. If you want to play with more than 10 players in one lobby, you're required to use a custom server. Credits for the original implementation that allowed 10+ player lobbies go to the creaters of the [CrowdedMod](https://github.com/CrowdedMods/CrowdedMod).
+
+**Setup the Clients:**
+1. Open the region menu where you can choose between the different regions
+2. Select the region *Custom*
+3. Enter the ip/domain and the port of your custom server in the corresponding text fields
+
+**Setup the Server:**
+1. Get the [Impostor](https://github.com/Impostor/Impostor) release for the Among Us version **2021.3.31 - 2021.4.2**
+2. Follow the steps (using the server release you just downloaded) on the official [Impostor-Documentation](https://github.com/Impostor/Impostor/wiki/Running-the-server)
+3. Make sure to set the following values to false in the `config.json` file:
+```
+    ...
+    "AntiCheat": {
+      "Enabled": false,
+      "BanIpFromGame": false
+    }
+```
+4. Make sure to forward the right ports on the hosting machine
+5. Run the server and setup the client
+
+**Setting up Server as Docker Container:** \
+If you want to run the server as a docker container you'll need to use the image
+```
+aeonlucid/impostor:nightly
+```
+(Currently only the "nightly" tag is starting a server supporting 2021.3.31 or later)
+
+In addition to running it, the environment variables to disable the AntiCheat feature need to be set.
+```
+IMPOSTOR_AntiCheat__Enabled=false
+IMPOSTOR_AntiCheat__BanIpFromGame=false
+```
+
+Example to docker run command:
+```
+docker run -p 22023:22023/udp --env IMPOSTOR_AntiCheat__Enabled=false --env IMPOSTOR_AntiCheat__BanIpFromGame=false aeonlucid/impostor:nightly
+```
+
+Or use to run it in the background
+```
+docker run -d -p 22023:22023/udp --env IMPOSTOR_AntiCheat__Enabled=false --env IMPOSTOR_AntiCheat__BanIpFromGame=false aeonlucid/impostor:nightly
+```
+
+# Credits & Resources
+[TheOthersRoles](https://github.com/Eisbison/TheOtherRoles) original project. 
+[OxygenFilter](https://github.com/NuclearPowered/Reactor.OxygenFilter) - For all the version v2.3.0 to v2.6.1, we were using the OxygenFilter for automatic deobfuscation\
+[Reactor](https://github.com/NuclearPowered/Reactor) - The framework used for all version before v2.0.0\
+[BepInEx](https://github.com/BepInEx) - Used to hook game functions\
+[Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) - Custom game options by **DorCoMaNdO**:
+- Before v1.6: We used the default Essentials release
+- v1.6-v1.8: We slightly changed the default Essentials. The changes can be found on this [branch](https://github.com/Eisbison/Reactor-Essentials/tree/feature/TheOtherRoles-Adaption) of our fork.
+- v2.0.0 and later: As we're not using Reactor anymore, we are using our own implementation, inspired by the one from **DorCoMaNdO**
+
+[Jackal and Sidekick](https://www.twitch.tv/dhalucard) - Original idea for the Jackal and Sidekick comes from **Dhalucard**\
+[Among-Us-Love-Couple-Mod](https://github.com/Woodi-dev/Among-Us-Love-Couple-Mod) - Idea for the Lovers role comes from **Woodi-dev**\
+[Jester](https://github.com/Maartii/Jester) - Idea for the Jester role comes from **Maartii**\
+[ExtraRolesAmongUs](https://github.com/NotHunter101/ExtraRolesAmongUs) - Idea for the Engineer and Medic role comes from **NotHunter101**. Also some code snippets come of the implementation were used.\
+[Among-Us-Sheriff-Mod](https://github.com/Woodi-dev/Among-Us-Sheriff-Mod) - Idea for the Sheriff role comes from **Woodi-dev**\
+[TooManyRolesMods](https://github.com/Hardel-DW/TooManyRolesMods) - Idea for the Detective and Time Master roles comes from **Hardel-DW**. Also some code snippets of the implementation were used.\
+[TownOfUs](https://github.com/slushiegoose/Town-Of-Us) - Idea for the Swapper, Shifter, Arsonist and a similar Mayor role come from **Slushiegoose**\
+[Ottomated](https://twitter.com/ottomated_) - Idea for the Morphling, Snitch and Camouflager role come from **Ottomated**\
+[Crowded-Mod](https://github.com/CrowdedMods/CrowdedMod) - Our implementation for 10+ player lobbies is inspired by the one from the **Crowded Mod Team**\
+
+# Custom Hats
+## Create and submit new hat designs
+We're awaiting your creative hat designs and we'll integrate all the good ones in our mod.
+Here are a few instructions, on how to create a custom hat:
+
+- **Creation:** A hat consists of up to three textures. The aspect ratio of the textures has to be `4:5`, we recommend `300px:375px`:
+  - `Main texture (required)`:
+    - This is the main texture of your hat. It will usually be rendered in front of the player, if you set the `behind` parameter it will be rendered behind the player.
+    - The name of the texture needs to follow the pattern *hatname.png*, but you can also set some additional parameters in the file name by adding `_parametername` to the file name (before the *.png*).
+    - Parameter `bounce`: This parameter determines whether the hat will bounce while you're walking or not.
+    - Parameter `adaptive`: If this parameter is set, the Among Us coloring shader will be applied (the shader that replaces some colors with the colors that your character is wearing in the game). The color red (#ff0000) will be replaced with the primary color of your player and the color blue (#0000ff) with the secondary color. Also other colors will be affected and changed, you can have a look at the texture of the [Crewmate Hat](https://static.wikia.nocookie.net/among-us-wiki/images/e/e0/Crewmate_hat.png) to see how this feature should be used.
+    - Parameter `behind`: If this parameter is set, the main texture will be rendered behind the player.
+  - `Flipped texture (optional)`:
+    - This texture will be rendered instead of the Main texture, when facing the left.
+    - The name of the texture needs to follow the pattern `hatname_flip.png`.
+  - `Back texture (optional)`:
+    - This texture will be rendered behind the player.
+    - The name of the texture needs to follow the pattern `hatname_back.png`.
+  - `Flipped Back texture (optional)`:
+    - This texture will be rendered instead of the Back texture, when facing the left.
+    - The name of the texture needs to follow the pattern `hatname_back_flip.png`.
+  - `Climb texture (optional)`:
+    - This texture will be rendered in front of the player, when he's climbing.
+    - The name of the texture needs to follow the pattern `hatname_climb.png`.
+- **Testing:** You can test your hat design by putting all the files in the `\TheOtherHats\Test` subfolder of your mod folder. Then whenever you start a freeplay game, you and all the dummies will be wearing the new hat. You don't need to restart Among Us if you change the hat files, just exit and reenter the freeplay mode.
+
+- **Submission:** If you got a hat design, you can submit it on our [Discord server](https://discord.gg/77RkMJHWsM). We'll look at all the hats and add all the good ones to the game.
 
 # Source code
 It's bad I know, this is a side project and my second week of modding. So there are no best practices around here.
