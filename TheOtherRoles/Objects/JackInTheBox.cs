@@ -10,27 +10,13 @@ namespace TheOtherRoles.Objects {
         public static System.Collections.Generic.List<JackInTheBox> AllJackInTheBoxes = new System.Collections.Generic.List<JackInTheBox>();
         public static int JackInTheBoxLimit = 3;
         public static bool boxesConvertedToVents = false;
-        public static Sprite[] boxAnimationSprites = new Sprite[18];
-
-        public static Sprite getBoxAnimationSprite(int index) {
-            if (boxAnimationSprites == null || boxAnimationSprites.Length == 0) return null;
-            index = Mathf.Clamp(index, 0, boxAnimationSprites.Length - 1);
-            if (boxAnimationSprites[index] == null)
-                boxAnimationSprites[index] = (Helpers.loadSpriteFromResources($"TheOtherRoles.Resources.TricksterAnimation.trickster_box_00{(index + 1):00}.png", 175f));
-            return boxAnimationSprites[index];
-        }
-
-        public static void startAnimation(int ventId) {
-            JackInTheBox box = AllJackInTheBoxes.FirstOrDefault((x) => x?.vent != null && x.vent.Id == ventId);
-            if (box == null) return;
-            Vent vent = box.vent;
-
-            HudManager.Instance.StartCoroutine(Effects.Lerp(0.6f, new Action<float>((p) => {
-                if (vent != null && vent.myRend != null) {
-                    vent.myRend.sprite = getBoxAnimationSprite((int)(p * boxAnimationSprites.Length));
-                    if (p == 1f) vent.myRend.sprite = getBoxAnimationSprite(0);
-                }
-            })));
+        public static Sprite boxAnimationSprites;
+        public static Sprite getBoxAnimationSprite()
+        {
+            if (boxAnimationSprites) return boxAnimationSprites;        
+            if (boxAnimationSprites== null)
+                boxAnimationSprites = (Helpers.loadSpriteFromResources($"TheOtherRoles.Resources.TricksterAnimation.trickster_box.png", 175f));
+            return boxAnimationSprites;
         }
 
         private GameObject gameObject;
@@ -43,7 +29,7 @@ namespace TheOtherRoles.Objects {
             // Create the marker
             gameObject.transform.position = position;
             var boxRenderer = gameObject.AddComponent<SpriteRenderer>();
-            boxRenderer.sprite = getBoxAnimationSprite(0);
+            boxRenderer.sprite = getBoxAnimationSprite();
 
             // Create the vent
             var referenceVent = UnityEngine.Object.FindObjectOfType<Vent>();
@@ -58,7 +44,7 @@ namespace TheOtherRoles.Objects {
             vent.GetComponent<PowerTools.SpriteAnim>()?.Stop();
             vent.Id = ShipStatus.Instance.AllVents.Select(x => x.Id).Max() + 1; // Make sure we have a unique id
             var ventRenderer = vent.GetComponent<SpriteRenderer>();
-            ventRenderer.sprite = getBoxAnimationSprite(0);
+            ventRenderer.sprite = getBoxAnimationSprite();
             vent.myRend = ventRenderer;
             var allVentsList = ShipStatus.Instance.AllVents.ToList();
             allVentsList.Add(vent);
