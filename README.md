@@ -511,6 +511,7 @@ The Mini cannot be killed until it turns 18 years old, however it can be voted o
 ## Medic
 ### **Team: Crewmates**
 The Medic can shield (highlighted by an outline around the player) one player per game, which makes the player unkillable.\
+**Vitals**: The Medic can see how long dead players have been dead for.\
 The shielded player can still be voted out and might also be an Impostor.\
 If set in the options, the shielded player will get a red flash on their screen if someone (Impostor, Sheriff, ...) tried to murder them.
 If the Medic dies, the shield disappears with them.\
@@ -648,6 +649,17 @@ When the Snitch has one task left (configurable) the Snitch will be revealed to 
 |----------|:-------------:|
 | Snitch Spawn Chance | -
 | Task Count Where Impostors See Snitch | -
+-----------------------
+
+## Logger
+### **Team: Crewmates**
+Logger can place 3 rigged garlic that will log player walking on it (like sensor on mira HQ). player name for each garlic are written in chat (only for logger) at the beginning of next meeting.
+
+
+### Game Options
+| Name | Description
+|----------|:-------------:|
+| Logger Spawn Chance | -
 -----------------------
 
 ## Jackal
