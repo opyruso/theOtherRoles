@@ -251,7 +251,7 @@ namespace TheOtherRoles.Patches {
         [HarmonyPatch(typeof(VitalsMinigame), nameof(VitalsMinigame.Begin))]
         class VitalsMinigameStartPatch {
             static void Postfix(VitalsMinigame __instance) {
-                if (Hacker.hacker != null && PlayerControl.LocalPlayer == Hacker.hacker) {
+                if ((Hacker.hacker != null && PlayerControl.LocalPlayer == Hacker.hacker) || Medic.medic!= null && PlayerControl.LocalPlayer == Medic.medic) {
                     hackerTexts = new List<TMPro.TextMeshPro>();
                     foreach (VitalsPanel panel in __instance.vitals) {
                         TMPro.TextMeshPro text = UnityEngine.Object.Instantiate(__instance.SabText, panel.transform);
@@ -272,7 +272,7 @@ namespace TheOtherRoles.Patches {
             static void Postfix(VitalsMinigame __instance) {
                 // Hacker show time since death
                 
-                if (Hacker.hacker != null && Hacker.hacker == PlayerControl.LocalPlayer && Hacker.hackerTimer > 0) {
+                if ((Hacker.hacker != null && Hacker.hacker == PlayerControl.LocalPlayer && Hacker.hackerTimer > 0 ) || ( Medic.medic!= null && Medic.medic == PlayerControl.LocalPlayer)) {
                     for (int k = 0; k < __instance.vitals.Length; k++) {
                         VitalsPanel vitalsPanel = __instance.vitals[k];
                         GameData.PlayerInfo player = GameData.Instance.AllPlayers[k];
