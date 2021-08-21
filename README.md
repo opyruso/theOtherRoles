@@ -45,7 +45,7 @@ The [Role Assignment](#role-assignment) sections explains how the roles are bein
 <details>
   <summary>Click to show the Changelog</summary>
 
-**Version Master (build it by yourself)**  
+**Version 2.8.1.3**  
 - Remove vent animation of trickster's JackInTheBox 
 - Medic can see how long dead players have been dead for at vitals
 - If guesser miss guess, dead players will have a message in chat
