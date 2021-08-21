@@ -110,7 +110,7 @@ namespace TheOtherRoles.Patches {
 
             // Mini set adapted cooldown
             if (Mini.mini != null && PlayerControl.LocalPlayer == Mini.mini && Mini.mini.Data.IsImpostor) {
-                var multiplier = Mini.isGrownUp() ? 0.66f : 2f;
+                var multiplier = Mathf.Lerp(0.66f , 2f, 1 - Mini.growingProgress());
                 Mini.mini.SetKillTimer(PlayerControl.GameOptions.KillCooldown * multiplier);
             }
 
