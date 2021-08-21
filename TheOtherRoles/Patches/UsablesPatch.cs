@@ -42,15 +42,15 @@ namespace TheOtherRoles.Patches {
 
             var usableDistance = __instance.UsableDistance;
             if (__instance.name.StartsWith("JackInTheBoxVent_")) {
-                if(Trickster.trickster != PlayerControl.LocalPlayer) {
-                    // Only the Trickster can use the Jack-In-The-Boxes!
+                if((Trickster.trickster == PlayerControl.LocalPlayer ) || (Engineer.engineer != null && Engineer.engineer == PlayerControl.LocalPlayer)) {
+                    // Reduce the usable distance to reduce the risk of gettings stuck while trying to jump into the box if it's placed near objects
+                    usableDistance = 0.4f;
+                } else {
+                    // Only the Trickster and Engineer can use the Jack-In-The-Boxes!
                     canUse = false;
                     couldUse = false;
                     __result = num;
-                    return false; 
-                } else {
-                    // Reduce the usable distance to reduce the risk of gettings stuck while trying to jump into the box if it's placed near objects
-                    usableDistance = 0.4f; 
+                    return false;
                 }
             } else if (__instance.name.StartsWith("SealedVent_")) {
                 canUse = couldUse = false;
@@ -111,7 +111,7 @@ namespace TheOtherRoles.Patches {
     class UseButtonSetTargetPatch {
         static void Postfix(UseButtonManager __instance) {
             // Trickster render special vent button
-            if (__instance.currentTarget != null && Trickster.trickster != null && Trickster.trickster == PlayerControl.LocalPlayer) {
+            if (__instance.currentTarget != null && ((Trickster.trickster != null && Trickster.trickster == PlayerControl.LocalPlayer ) || (Engineer.engineer != null && Engineer.engineer == PlayerControl.LocalPlayer)) ) {
                 Vent possibleVent =  __instance.currentTarget.TryCast<Vent>();
                 if (possibleVent != null && possibleVent.gameObject != null) {
                     var useButton = __instance.currentButtonShown;
