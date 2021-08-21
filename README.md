@@ -32,6 +32,7 @@ Even more roles are coming soon :)
 |  | [Time Master](#time-master) |  |  |
 |  |  [Tracker](#tracker) |  |  |
 |  |  [Logger](#logger) |  |  |
+|  |  [Bait](#bait) |  |
 
 The [Role Assignment](#role-assignment) sections explains how the roles are being distributed among the players.
 
@@ -661,6 +662,26 @@ Logger can place 3 rigged garlic that will log player walking on it (like sensor
 |----------|:-------------:|
 | Logger Spawn Chance | -
 -----------------------
+
+## Bait
+### **Team: Crewmates**
+
+Created by  [Mallöris](https://github.com/Mallaris)\
+
+The Bait is a Crewmate that if killed, forces the killer to self report the body (you can configure a delay in the options).
+Additionally, the Bait can see if someone is inside a vent (depending on the options the exact vent gets
+an outline or all vents do).
+
+**NOTE:**
+- If there is a Seer in the game, there can't be a Bait
+
+
+### Game Options
+| Name | Description
+|----------|:-------------:|
+| Bait Spawn Chance | -
+| Bait Highlight All Vents | If set to true, all vents will be highlighted if a player is inside of one of them. If set to false, only the vents where players are siting in will be highlighted.
+| Bait Report Delay | -
 
 ## Jackal
 ### **Team: Jackal**
