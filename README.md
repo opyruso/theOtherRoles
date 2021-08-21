@@ -45,6 +45,14 @@ The [Role Assignment](#role-assignment) sections explains how the roles are bein
 <details>
   <summary>Click to show the Changelog</summary>
 
+**Version Master (build it by yourself)**  
+- Remove vent animation of trickster's JackInTheBox 
+- Medic can see how long dead players have been dead for at vitals
+- If guesser miss guess, dead players will have a message in chat
+- Kill cooldown of Evil mini is now proportional to is age
+- Engineer can use trickster box
+- Bait and Seer can't spawn in same game
+
 **Version 2.7.3.8**
 - add color to log Trap
 - Fix bug when shifter shift logger
