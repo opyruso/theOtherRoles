@@ -240,7 +240,7 @@ ex Lover surviving as the partnership was erased before. Also a Jester win would
 ## Trickster
 ### **Team: Impostors**
 The Trickster is an Impostor that can place 3 jack-in-the-boxes that are invisible at first to other players. \
-If the Trickster has placed all of his boxes they will be converted into a vent network usable only by the Trickster himself, but the boxes are revealed to the others. \
+If the Trickster has placed all of his boxes they will be converted into a vent network usable only by the Trickster himself and the Engineer, but the boxes are revealed to the others. \
 If the boxes are converted to a vent network, the Trickster gains a new ability "Lights out" to limit the visibility of Non-Impostors, that cannot be fixed by other players. Lights are automatically restored after a while. \
 boxes dosn't have animation.
 \
