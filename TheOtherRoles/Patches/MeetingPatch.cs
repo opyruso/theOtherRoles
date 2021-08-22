@@ -298,21 +298,31 @@ namespace TheOtherRoles.Patches {
 
                         var mainRoleInfo = RoleInfo.getRoleInfoForPlayer(target).FirstOrDefault();
                         if (mainRoleInfo == null) return;
-
-                        target = (mainRoleInfo == roleInfo) ? target : PlayerControl.LocalPlayer;
-
-                        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.GuesserShoot, Hazel.SendOption.Reliable, -1);
-                        writer.Write(target.PlayerId);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer);
-                        RPCProcedure.guesserShoot(target.PlayerId);
+     
+                        if( mainRoleInfo == roleInfo) // guess right
+                        {
+                            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.GuesserShoot, Hazel.SendOption.Reliable, -1);
+                            writer.Write(target.PlayerId);
+                            AmongUsClient.Instance.FinishRpcImmediately(writer);
+                            RPCProcedure.guesserShoot(target.PlayerId);
+                            string msg = $"Guesser guessed {target.name} as {roleInfo.name} and was correct!";                       
+                            target.RpcSendChat(msg);  // The target is dead at this point, so only ghosts will see the message
+                        } else //guess wrong
+                        {
+                            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.GuesserShoot, Hazel.SendOption.Reliable, -1);
+                            writer.Write(PlayerControl.LocalPlayer.PlayerId);
+                            AmongUsClient.Instance.FinishRpcImmediately(writer);
+                            RPCProcedure.guesserShoot(PlayerControl.LocalPlayer.PlayerId);
+                            string msg = $"Guesser guessed {target.name} as {roleInfo.name} and was wrong!";
+                            PlayerControl.LocalPlayer.RpcSendChat(msg);  // The LocalPlayer is dead at this point, so only ghosts will see the message
+                        }
+                       
 
                         __instance.playerStates.ToList().ForEach(x => x.gameObject.SetActive(true));
                         UnityEngine.Object.Destroy(container.gameObject);
                         __instance.playerStates.ToList().ForEach(x => { if (x.transform.FindChild("ShootButton") != null) UnityEngine.Object.Destroy(x.transform.FindChild("ShootButton").gameObject); });
 
-                        string msg = $"Guesser guessed {target.name} as {roleInfo.name} ";
-                        msg += (target != PlayerControl.LocalPlayer ? "and was correct!" : "but was wrong!");
-                        target.RpcSendChat(msg);  // The target is dead at this point, so only ghosts will see the message.
+                        
                     }
                 }));
 
