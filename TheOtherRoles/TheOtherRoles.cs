@@ -57,6 +57,7 @@ namespace TheOtherRoles
             BountyHunter.clearAndReload();
             Logger.clearAndReload();
             Bait.clearAndReload();
+            GhostLord.clearAndReload();
         }
 
         public static class Jester {
@@ -1155,6 +1156,68 @@ namespace TheOtherRoles
             highlightAllVents = CustomOptionHolder.baitHighlightAllVents.getBool();
             reportDelay = CustomOptionHolder.baitReportDelay.getFloat();
         }
+    }
+
+    public static class GhostLord
+    {
+
+        public static PlayerControl ghostLord;
+        public static Color color = Palette.ImpostorRed;
+
+        public static float cooldown = 30f;
+        public static float duration = 10f;
+        public static float ghostTimer = 0f;
+
+        private static Sprite buttonSprite;
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.GhostLordButton.png", 115f);
+            return buttonSprite;
+        }
+
+        public static bool isTurnIntoGhost()
+        {
+            return ghostTimer > 0f;
+        }
+
+        public static void clearAndReload()
+        {
+            ghostLord = null;
+            ghostTimer = 0f;
+            cooldown = CustomOptionHolder.ghostLordCooldown.getFloat();
+            duration = CustomOptionHolder.ghostLordDuration.getFloat();
+
+        }
+
+        public static void turnSkinIntoGhost()
+        {            
+
+            Color oldBackColor = Palette.ShadowColors[GhostLord.ghostLord.Data.ColorId];
+            Color oldBodyColor = Palette.PlayerColors[GhostLord.ghostLord.Data.ColorId];
+
+
+            GhostLord.ghostLord.myRend.material.SetColor("_BackColor", new Color(1f,1f,1f,0.25f));
+            GhostLord.ghostLord.myRend.material.SetColor("_BodyColor", new Color(1f, 1f, 1f, 0.25f));
+
+            if (GhostLord.ghostLord.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance.AllSkins[(int)GhostLord.ghostLord.Data.SkinId].ProdId)
+            {
+                Helpers.setSkinWithAnim(GhostLord.ghostLord.MyPhysics, GhostLord.ghostLord.Data.SkinId);
+            }
+
+        }
+
+        public static void resetSkinIntoCrewmate()
+        {                         
+            if (ghostLord == null) return;
+            ghostLord.SetHat(ghostLord.Data.HatId, (int)ghostLord.Data.ColorId);
+            Helpers.setSkinWithAnim(ghostLord.MyPhysics, ghostLord.Data.SkinId);
+            ghostLord.SetPet(ghostLord.Data.PetId);
+            ghostLord.CurrentPet.Visible = ghostLord.Visible;
+            ghostLord.SetColor(ghostLord.Data.ColorId);
+            
+        }
+
     }
 
 }

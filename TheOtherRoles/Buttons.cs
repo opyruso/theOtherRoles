@@ -36,6 +36,7 @@ namespace TheOtherRoles
         public static CustomButton securityGuardButton;
         public static CustomButton arsonistButton;
         public static CustomButton loggerButton;
+        public static CustomButton ghostLordButton;
         public static TMPro.TMP_Text securityGuardButtonScrewsText;
 
 
@@ -65,6 +66,7 @@ namespace TheOtherRoles
             warlockCurseButton.MaxTimer = Warlock.cooldown;
             securityGuardButton.MaxTimer = SecurityGuard.cooldown;
             arsonistButton.MaxTimer = Arsonist.cooldown;
+            ghostLordButton.MaxTimer = GhostLord.cooldown;
 
             timeMasterShieldButton.EffectDuration = TimeMaster.shieldDuration;
             hackerButton.EffectDuration = Hacker.duration;
@@ -75,6 +77,7 @@ namespace TheOtherRoles
             invisibleButton.EffectDuration = Invisible.duration;
             lightsOutButton.EffectDuration = Trickster.lightsOutDuration;
             arsonistButton.EffectDuration = Arsonist.duration;
+            ghostLordButton.EffectDuration = GhostLord.duration;
             loggerButton.MaxTimer = Logger.cooldown;
 
 
@@ -930,6 +933,29 @@ namespace TheOtherRoles
                 new Vector3(-1.3f, 0f, 0f),
                 __instance,
                 KeyCode.F
+            );
+
+            // Ghost lord ghosting
+            ghostLordButton = new CustomButton(
+                () => {
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.GhostLordTurnIntoGhost, Hazel.SendOption.Reliable, -1);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    RPCProcedure.ghostLordTurnIntoGhost();
+                },
+                () => { return GhostLord.ghostLord != null && GhostLord.ghostLord == PlayerControl.LocalPlayer && !PlayerControl.LocalPlayer.Data.IsDead; },
+                () => { return PlayerControl.LocalPlayer.CanMove; },
+                () => {
+                    ghostLordButton.Timer = ghostLordButton.MaxTimer;
+                    ghostLordButton.isEffectActive = false;
+                    ghostLordButton.killButtonManager.TimerText.color = Palette.EnabledColor;
+                },
+                GhostLord.getButtonSprite(),
+                 new Vector3(-1.3f, 1.3f, 0f),
+                __instance,
+                KeyCode.F,
+                true,
+                GhostLord.duration,
+                () => { ghostLordButton.Timer = ghostLordButton.MaxTimer; }
             );
 
 
