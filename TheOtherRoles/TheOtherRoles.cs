@@ -1196,13 +1196,14 @@ namespace TheOtherRoles
             Color oldBackColor = Palette.ShadowColors[GhostLord.ghostLord.Data.ColorId];
             Color oldBodyColor = Palette.PlayerColors[GhostLord.ghostLord.Data.ColorId];
 
-
-            GhostLord.ghostLord.myRend.material.SetColor("_BackColor", new Color(1f,1f,1f,0.25f));
-            GhostLord.ghostLord.myRend.material.SetColor("_BodyColor", new Color(1f, 1f, 1f, 0.25f));
+            GhostLord.ghostLord.myRend.material.SetColor("_BackColor", new Color(1f,1f,1f,0.0f));
+            GhostLord.ghostLord.myRend.material.SetColor("_BodyColor", new Color(1f, 1f, 1f, 1f));
+            GhostLord.ghostLord.HatRenderer.SetHat(0, GhostLord.ghostLord.Data.ColorId);
 
             if (GhostLord.ghostLord.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance.AllSkins[(int)GhostLord.ghostLord.Data.SkinId].ProdId)
             {
                 Helpers.setSkinWithAnim(GhostLord.ghostLord.MyPhysics, GhostLord.ghostLord.Data.SkinId);
+                Helpers.setSkinWithAnim(GhostLord.ghostLord.MyPhysics, 0);
             }
 
         }
@@ -1214,8 +1215,7 @@ namespace TheOtherRoles
             Helpers.setSkinWithAnim(ghostLord.MyPhysics, ghostLord.Data.SkinId);
             ghostLord.SetPet(ghostLord.Data.PetId);
             ghostLord.CurrentPet.Visible = ghostLord.Visible;
-            ghostLord.SetColor(ghostLord.Data.ColorId);
-            
+            ghostLord.SetColor(ghostLord.Data.ColorId);            
         }
 
     }

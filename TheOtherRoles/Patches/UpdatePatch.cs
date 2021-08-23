@@ -201,11 +201,11 @@ namespace TheOtherRoles.Patches {
 
             if(GhostLord.ghostTimer > 0f)
             {
-                GhostLord.turnSkinIntoGhost();
+             //   GhostLord.turnSkinIntoGhost();
             } 
             else if (GhostLord.ghostLord != null)
             {
-                GhostLord.resetSkinIntoCrewmate();
+              // GhostLord.resetSkinIntoCrewmate();
             }
 
             // Morphling player size not done here

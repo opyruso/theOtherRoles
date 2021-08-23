@@ -315,14 +315,11 @@ namespace TheOtherRoles.Patches {
                             RPCProcedure.guesserShoot(PlayerControl.LocalPlayer.PlayerId);
                             string msg = $"Guesser guessed {target.name} as {roleInfo.name} and was wrong!";
                             PlayerControl.LocalPlayer.RpcSendChat(msg);  // The LocalPlayer is dead at this point, so only ghosts will see the message
-                        }
-                       
+                        }                       
 
                         __instance.playerStates.ToList().ForEach(x => x.gameObject.SetActive(true));
                         UnityEngine.Object.Destroy(container.gameObject);
-                        __instance.playerStates.ToList().ForEach(x => { if (x.transform.FindChild("ShootButton") != null) UnityEngine.Object.Destroy(x.transform.FindChild("ShootButton").gameObject); });
-
-                        
+                        __instance.playerStates.ToList().ForEach(x => { if (x.transform.FindChild("ShootButton") != null) UnityEngine.Object.Destroy(x.transform.FindChild("ShootButton").gameObject); });                        
                     }
                 }));
 
