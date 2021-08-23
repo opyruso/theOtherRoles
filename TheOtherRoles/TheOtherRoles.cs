@@ -1191,31 +1191,20 @@ namespace TheOtherRoles
         }
 
         public static void turnSkinIntoGhost()
-        {            
-
-            Color oldBackColor = Palette.ShadowColors[GhostLord.ghostLord.Data.ColorId];
-            Color oldBodyColor = Palette.PlayerColors[GhostLord.ghostLord.Data.ColorId];
-
-            GhostLord.ghostLord.myRend.material.SetColor("_BackColor", new Color(1f,1f,1f,0.0f));
-            GhostLord.ghostLord.myRend.material.SetColor("_BodyColor", new Color(1f, 1f, 1f, 1f));
-            GhostLord.ghostLord.HatRenderer.SetHat(0, GhostLord.ghostLord.Data.ColorId);
-
-            if (GhostLord.ghostLord.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance.AllSkins[(int)GhostLord.ghostLord.Data.SkinId].ProdId)
-            {
-                Helpers.setSkinWithAnim(GhostLord.ghostLord.MyPhysics, GhostLord.ghostLord.Data.SkinId);
-                Helpers.setSkinWithAnim(GhostLord.ghostLord.MyPhysics, 0);
-            }
-
+        {
+            Color tmpBodyColor = GhostLord.ghostLord.myRend.color;
+            tmpBodyColor.a = 0.6f;
+            GhostLord.ghostLord.myRend.color = tmpBodyColor;
+            GhostLord.ghostLord.HatRenderer.color = tmpBodyColor;
+            GhostLord.ghostLord.MyPhysics.Skin.SetGhost();
         }
 
         public static void resetSkinIntoCrewmate()
-        {                         
-            if (ghostLord == null) return;
-            ghostLord.SetHat(ghostLord.Data.HatId, (int)ghostLord.Data.ColorId);
-            Helpers.setSkinWithAnim(ghostLord.MyPhysics, ghostLord.Data.SkinId);
-            ghostLord.SetPet(ghostLord.Data.PetId);
-            ghostLord.CurrentPet.Visible = ghostLord.Visible;
-            ghostLord.SetColor(ghostLord.Data.ColorId);            
+        {
+            Color tmpColor = GhostLord.ghostLord.myRend.color;
+            tmpColor.a = 1f;
+            GhostLord.ghostLord.myRend.color = tmpColor;
+            GhostLord.ghostLord.HatRenderer.color = tmpColor;
         }
 
     }

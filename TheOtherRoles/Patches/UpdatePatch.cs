@@ -197,17 +197,6 @@ namespace TheOtherRoles.Patches {
             Invisible.invisibleTimer -= Time.deltaTime;
             GhostLord.ghostTimer -= Time.deltaTime;
 
-            //set GhostLord look, override by everything else
-
-            if(GhostLord.ghostTimer > 0f)
-            {
-             //   GhostLord.turnSkinIntoGhost();
-            } 
-            else if (GhostLord.ghostLord != null)
-            {
-              // GhostLord.resetSkinIntoCrewmate();
-            }
-
             // Morphling player size not done here
             // Set morphling morphed look
             if (Morphling.morphTimer > 0f && Camouflager.camouflageTimer <= 0f) {
@@ -255,8 +244,18 @@ namespace TheOtherRoles.Patches {
                         p.CurrentPet.Source = p;
                     }
                 }
-            } 
-            
+            }
+
+            //set GhostLord look, override by everything else
+            if (GhostLord.ghostTimer > 0f)
+            {
+                GhostLord.turnSkinIntoGhost();
+            }
+            else if (GhostLord.ghostLord != null)
+            {
+                GhostLord.resetSkinIntoCrewmate();
+            }
+
             // Set invis look (overrides camouflage look if existent)
             if (Invisible.invisibleTimer > 0f) {
                 Invisible.setInvisible();
