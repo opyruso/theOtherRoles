@@ -57,6 +57,7 @@ namespace TheOtherRoles
             BountyHunter.clearAndReload();
             Logger.clearAndReload();
             Bait.clearAndReload();
+            GhostLord.clearAndReload();
         }
 
         public static class Jester {
@@ -1155,6 +1156,57 @@ namespace TheOtherRoles
             highlightAllVents = CustomOptionHolder.baitHighlightAllVents.getBool();
             reportDelay = CustomOptionHolder.baitReportDelay.getFloat();
         }
+    }
+
+    public static class GhostLord
+    {
+
+        public static PlayerControl ghostLord;
+        public static Color color = Palette.ImpostorRed;
+
+        public static float cooldown = 30f;
+        public static float duration = 10f;
+        public static float ghostTimer = 0f;
+
+        private static Sprite buttonSprite;
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.GhostLordButton.png", 115f);
+            return buttonSprite;
+        }
+
+        public static bool isTurnIntoGhost()
+        {
+            return ghostTimer > 0f;
+        }
+
+        public static void clearAndReload()
+        {
+            ghostLord = null;
+            ghostTimer = 0f;
+            cooldown = CustomOptionHolder.ghostLordCooldown.getFloat();
+            duration = CustomOptionHolder.ghostLordDuration.getFloat();
+
+        }
+
+        public static void turnSkinIntoGhost()
+        {
+            Color tmpBodyColor = GhostLord.ghostLord.myRend.color;
+            tmpBodyColor.a = 0.6f;
+            GhostLord.ghostLord.myRend.color = tmpBodyColor;
+            GhostLord.ghostLord.HatRenderer.color = tmpBodyColor;
+            GhostLord.ghostLord.MyPhysics.Skin.SetGhost();
+        }
+
+        public static void resetSkinIntoCrewmate()
+        {
+            Color tmpColor = GhostLord.ghostLord.myRend.color;
+            tmpColor.a = 1f;
+            GhostLord.ghostLord.myRend.color = tmpColor;
+            GhostLord.ghostLord.HatRenderer.color = tmpColor;
+        }
+
     }
 
 }

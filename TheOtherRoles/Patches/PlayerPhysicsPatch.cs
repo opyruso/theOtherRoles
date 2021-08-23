@@ -13,6 +13,7 @@ namespace TheOtherRoles.Patches
         {
             if (AmongUsClient.Instance.GameState != InnerNet.InnerNetClient.GameStates.Started) return;
             updateUndertakerMoveSpeed(__instance);
+            removeGhostLordCollision(__instance);
         }
 
         static void updateUndertakerMoveSpeed(PlayerPhysics playerPhysics)
@@ -22,6 +23,18 @@ namespace TheOtherRoles.Patches
             {
                 if (playerPhysics.AmOwner && GameData.Instance && playerPhysics.myPlayer.CanMove)
                     playerPhysics.body.velocity /= 2;
+            }
+        }
+        static void removeGhostLordCollision(PlayerPhysics playerPhysics)
+        {
+            if (GhostLord.ghostLord == null || GhostLord.ghostLord != PlayerControl.LocalPlayer) return;
+            if (GhostLord.isTurnIntoGhost())
+            {
+                playerPhysics.myPlayer.Collider.enabled = false;
+            }
+            else
+            {
+                playerPhysics.myPlayer.Collider.enabled = true;
             }
         }
     }

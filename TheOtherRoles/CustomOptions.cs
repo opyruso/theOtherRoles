@@ -181,6 +181,10 @@ namespace TheOtherRoles {
         public static CustomOption baitHighlightAllVents;
         public static CustomOption baitReportDelay;
 
+        public static CustomOption ghostLordSpawnRate;
+        public static CustomOption ghostLordCooldown;
+        public static CustomOption ghostLordDuration;
+
         public static CustomOption maxNumberOfMeetings;
         public static CustomOption blockSkippingInEmergencyMeetings;
         public static CustomOption noVoteIsSelfVote;
@@ -243,12 +247,7 @@ namespace TheOtherRoles {
             cleanerCooldown = CustomOption.Create(261, "Cleaner Cooldown", 27.5f, 10f, 60f, 2.5f, cleanerSpawnRate);
 
             undertakerSpawnRate = CustomOption.Create(360, cs(Undertaker.color, "Undertaker"), rates, null, true);
-            undertakerDragingDelaiAfterKill = CustomOption.Create(361, "Draging delai after kill", 2f, 0f, 15, 1f, undertakerSpawnRate);                     
-
-            warlockSpawnRate = CustomOption.Create(270, cs(Cleaner.color, "Warlock"), rates, null, true);
-            warlockCooldown = CustomOption.Create(271, "Warlock Cooldown", 27.5f, 10f, 60f, 2.5f, warlockSpawnRate);
-            warlockRootTime = CustomOption.Create(272, "Warlock Root Time", 10f, 0f, 15f, 1f, warlockSpawnRate);
-
+            undertakerDragingDelaiAfterKill = CustomOption.Create(361, "Draging delai after kill", 2f, 0f, 15, 1f, undertakerSpawnRate);                    
             bountyHunterSpawnRate = CustomOption.Create(320, cs(BountyHunter.color, "Bounty Hunter"), rates, null, true);
             bountyHunterBountyDuration = CustomOption.Create(321, "Duration After Which Bounty Changes",  60f, 10f, 180f, 10f, bountyHunterSpawnRate);
             bountyHunterReducedCooldown = CustomOption.Create(322, "Cooldown After Killing Bounty", 17.5f, 0f, 30f, 2.5f, bountyHunterSpawnRate);
@@ -256,6 +255,13 @@ namespace TheOtherRoles {
             bountyHunterShowArrow = CustomOption.Create(324, "Show Arrow Pointing Towards The Bounty", true, bountyHunterSpawnRate);
             bountyHunterArrowUpdateIntervall = CustomOption.Create(325, "Arrow Update Intervall", 1f, 1f, 10f, 1f, bountyHunterShowArrow);
 
+            ghostLordSpawnRate = CustomOption.Create(370, cs(GhostLord.color, "Ghost Lord"), rates, null, true);
+            ghostLordCooldown = CustomOption.Create(371, "Ghost Lord Cooldown", 27.5f, 10f, 60f, 2.5f, ghostLordSpawnRate);
+            ghostLordDuration = CustomOption.Create(372, "Ghost Lord Duration", 6f, 1f, 20f, 0.5f, ghostLordSpawnRate);
+
+            warlockSpawnRate = CustomOption.Create(270, cs(Cleaner.color, "Warlock"), rates, null, true);
+            warlockCooldown = CustomOption.Create(271, "Warlock Cooldown", 27.5f, 10f, 60f, 2.5f, warlockSpawnRate);
+            warlockRootTime = CustomOption.Create(272, "Warlock Root Time", 10f, 0f, 15f, 1f, warlockSpawnRate);
 
             miniSpawnRate = CustomOption.Create(180, cs(Mini.color, "Mini"), rates, null, true);
             miniGrowingUpDuration = CustomOption.Create(181, "Mini Growing Up Duration", 600f, 100f, 1500f, 50f, miniSpawnRate);
@@ -361,7 +367,6 @@ namespace TheOtherRoles {
             securityGuardTotalScrews = CustomOption.Create(282, "Security Guard Number Of Screws", 6f, 1f, 15f, 1f, securityGuardSpawnRate);
             securityGuardCamPrice = CustomOption.Create(283, "Number Of Screws Per Cam", 1f, 1f, 15f, 1f, securityGuardSpawnRate);
             securityGuardVentPrice = CustomOption.Create(284, "Number Of Screws Per Vent", 1f, 1f, 15f, 1f, securityGuardSpawnRate);
-
 
             loggerSpawnRate = CustomOption.Create(350, cs(Logger.color, "Logger"), rates, null, true);
             loggerCooldown = CustomOption.Create(351, "Logger Cooldown", 30f, 2.5f, 60f, 2.5f, loggerSpawnRate);

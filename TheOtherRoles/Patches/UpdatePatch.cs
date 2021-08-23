@@ -183,8 +183,10 @@ namespace TheOtherRoles.Patches {
             Hacker.hackerTimer -= Time.deltaTime;
             Lighter.lighterTimer -= Time.deltaTime;
             Trickster.lightsOutTimer -= Time.deltaTime;
+            
         }
 
+        // manage timer for camouflager, morphing and ghost lord
         static void camouflageAndMorphActions() {
             float oldCamouflageTimer = Camouflager.camouflageTimer;
             float oldMorphTimer = Morphling.morphTimer;
@@ -193,9 +195,9 @@ namespace TheOtherRoles.Patches {
             Camouflager.camouflageTimer -= Time.deltaTime;
             Morphling.morphTimer -= Time.deltaTime;
             Invisible.invisibleTimer -= Time.deltaTime;
+            GhostLord.ghostTimer -= Time.deltaTime;
 
             // Morphling player size not done here
-
             // Set morphling morphed look
             if (Morphling.morphTimer > 0f && Camouflager.camouflageTimer <= 0f) {
                 if (Morphling.morphling != null && Morphling.morphTarget != null) {
@@ -242,8 +244,18 @@ namespace TheOtherRoles.Patches {
                         p.CurrentPet.Source = p;
                     }
                 }
-            } 
-            
+            }
+
+            //set GhostLord look, override by everything else
+            if (GhostLord.ghostTimer > 0f)
+            {
+                GhostLord.turnSkinIntoGhost();
+            }
+            else if (GhostLord.ghostLord != null)
+            {
+                GhostLord.resetSkinIntoCrewmate();
+            }
+
             // Set invis look (overrides camouflage look if existent)
             if (Invisible.invisibleTimer > 0f) {
                 Invisible.setInvisible();

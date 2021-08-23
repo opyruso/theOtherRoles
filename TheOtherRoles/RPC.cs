@@ -51,6 +51,7 @@ namespace TheOtherRoles
         BountyHunter,
         Logger,
         Bait,
+        GhostLord,
         Crewmate,
         Impostor
     }
@@ -104,7 +105,8 @@ namespace TheOtherRoles
         SealVent,
         ArsonistWin,
         PlaceLogTrap,
-        GuesserShoot
+        GuesserShoot,
+        GhostLordTurnIntoGhost
     }
 
     public static class RPCProcedure {
@@ -253,6 +255,9 @@ namespace TheOtherRoles
                         break;
                     case RoleId.Bait:
                         Bait.bait = player;
+                        break;
+                    case RoleId.GhostLord:
+                        GhostLord.ghostLord = player;
                         break;
                     }
                 }
@@ -626,7 +631,8 @@ namespace TheOtherRoles
             if (player == Cleaner.cleaner) Cleaner.clearAndReload();
             if (player == Undertaker.undertaker) Undertaker.clearAndReload();
             if (player == Warlock.warlock) Warlock.clearAndReload();
-        
+            if (player == GhostLord.ghostLord) GhostLord.clearAndReload();
+
             // Other roles
             if (player == Jester.jester) Jester.clearAndReload();
             if (player == Arsonist.arsonist) Arsonist.clearAndReload();
@@ -758,6 +764,12 @@ namespace TheOtherRoles
                     HudManager.Instance.KillOverlay.ShowKillAnimation(Guesser.guesser.Data, target.Data);
                 else if (partner != null && PlayerControl.LocalPlayer == partner) 
                     HudManager.Instance.KillOverlay.ShowKillAnimation(partner.Data, partner.Data);
+        }
+
+        public static void ghostLordTurnIntoGhost()
+        {
+            if (GhostLord.ghostLord == null) return;
+            GhostLord.ghostTimer = GhostLord.duration;
         }
     }   
 
@@ -932,6 +944,9 @@ namespace TheOtherRoles
                     break;
                 case (byte)CustomRPC.GuesserShoot:
                     RPCProcedure.guesserShoot(reader.ReadByte());
+                    break;
+                case (byte)CustomRPC.GhostLordTurnIntoGhost:
+                    RPCProcedure.ghostLordTurnIntoGhost();
                     break;
             }
         }
