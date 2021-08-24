@@ -3,13 +3,13 @@
 <p align="center">
 This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.</p>
 
-[![Discord](./Images/TOR_server.png)](https://discord.gg/77RkMJHWsM)
+[![Discord](./Images/TOR_server.png)](https://discord.gg/Hy5u7wGJxK)
 ![eisbison infographic](./Images/TOR_roles.jpg)
 
 
 # The Forgotten Roles
 
-The **The Forgotten Roles**, is a mod for [Among Us](https://store.steampowered.com/app/945360/Among_Us) which adds many new roles, new [Settings](#settings), new [Custom Hats](#custom-hats) and support for [10+ Player Lobbies](#Custom-Servers-and-10+-Players) to the game.
+The **The Forgotten Roles**, is a mod for [Among Us](https://store.steampowered.com/app/945360/Among_Us) forked from [TheOthersRoles](https://github.com/opyruso/theOtherRoles) which adds many new roles, new [Settings](#settings), new [Custom Hats](#custom-hats) and support for [10+ Player Lobbies](#Custom-Servers-and-10+-Players) to the game.
 Even more roles are coming soon :)
 
 | Impostors | Crewmates | Neutral | Secondary |
@@ -29,7 +29,7 @@ Even more roles are coming soon :)
 | [Warlock](#warlock) | [Snitch](#snitch) |  |  |
 | [Invisible](#Invisible)  | [Spy](#spy) |  |  |
 | [Undertaker](#Undertaker) | [Swapper](#swapper) |  |  |
-|  | [Time Master](#time-master) |  |  |
+| [Ghost Lord](#GhostLord) | [Time Master](#time-master) |  |  |
 |  |  [Tracker](#tracker) |  |  |
 |  |  [Logger](#logger) |  |  |
 |  |  [Bait](#bait) |  |
@@ -75,6 +75,8 @@ If you have problems with the AmongUsModUpdater, make sure to [contact us](https
 3. Make a copy of your game, it's not obligatory but advised, put it where you want.
 4. Drag or extract the files from the zip into your game, at the `.exe` level.
 5. Run the game (the first launch might take a while)
+6. Download TheForgottenRoles.DLL (named TheOthersRoles.DLL)
+7. remplace TheOthersRoles.ddl by TheForgottenRoles.dll
 
 Not working? You might want to install the dependency [vc_redist](https://aka.ms/vs/16/release/vc_redist.x86.exe)
 
@@ -329,6 +331,39 @@ Depending on the options, there'll be an arrow pointing towards the current targ
 | Bounty Hunter Arrow Update Intervall | Sets how often the position is being updated
 -----------------------
 
+## Ghost Lord
+### **Team: Impostors**
+
+The Ghost Lord is an Impostor, that can walk through everyting (including wall, lava ...)
+
+\
+**NOTE:**
+- If your power finishes inside wall or something else that you can't go normally, you will be stuck inside until you use your power again to escape.
+
+### Game Options
+| Name | Description |
+|----------|:-------------:|
+| Ghost Lord Spawn Chance | -
+| Ghost Lord Cooldown | -
+| Ghost Lord Duration | Time player stay in ghost.
+-----------------------
+
+## Invisible
+### **Team: Impostors**
+
+The Invisible is an Impostor, that can turn invisible to everyone.
+
+\
+**NOTE:**
+- He is able to kill and vent during his skill.
+
+### Game Options
+| Name | Description |
+|----------|:-------------:|
+| Invisible Spawn Chance | -
+| Invisible Cooldown | -
+| Invisible Duration | Time player stay invisible.
+-----------------------
 
 ## Guesser
 ### **Team: Crewmates or Impostors**
@@ -352,7 +387,6 @@ You can only shoot during the voting time.
 | Chance That The Guesser Is An Impostor | -
 | Guesser Number Of Shots Per Game| -
 | Guesser Number Of Shots Per Meeting| -
-
 -----------------------
 
 ## Lovers
@@ -664,6 +698,10 @@ When the Snitch has one task left (configurable) the Snitch will be revealed to 
 ### **Team: Crewmates**
 Logger can place 3 rigged garlic that will log player walking on it (like sensor on mira HQ). player name for each garlic are written in chat (only for logger) at the beginning of next meeting.
 
+**NOTE:**
+- invicible are not register during his skill.
+- during communication sabotage, people are register as "anonymous".
+- during morphing skill, morphing target will be register instead of morphing himself.
 
 ### Game Options
 | Name | Description
