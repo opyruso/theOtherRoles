@@ -203,7 +203,7 @@ are hidden and all players have the same color.\
 | Camo Duration | Time players stay camouflaged
 -----------------------
 
-## Vampire
+## Vampire [Vampire](./Images/roles/vampire)
 ### **Team: Impostors**
 The Vampire is an Impostor, that can bite other player. Bitten players die after a configurable amount of time.\
 If the Vampire spawn chance is greater 0 (even if there is no Vampire in the game), all players can place one garlic.\
